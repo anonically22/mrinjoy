@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #F4F4F4;
+    --bg-surface: #FFFFFF;
+    --text-main: #111111;
+    --accent: #1D4ED8;
+    --border-ui: #D1D5DB;
+  }
+
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-main)] antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .editorial-border-b {
+    border-bottom: 1px solid var(--border-ui);
+  }
+  
+  .editorial-border-t {
+    border-top: 1px solid var(--border-ui);
+  }
+
+  .editorial-border-r {
+    border-right: 1px solid var(--border-ui);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--accent)] text-white px-8 py-4 font-semibold uppercase tracking-wider text-sm hover:bg-blue-800 transition-colors;
+  }
+  
+  .btn-outline {
+    @apply border border-[var(--text-main)] text-[var(--text-main)] px-8 py-4 font-semibold uppercase tracking-wider text-sm hover:bg-[var(--text-main)] hover:text-white transition-colors;
+  }
+}

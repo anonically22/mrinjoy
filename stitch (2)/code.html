@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0a0a0a",
+                        "accent-blue": "#2563eb",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#0B0B0B",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .brutal-border { border: 1px solid #303030; }
+        .text-huge { font-size: clamp(3rem, 10vw, 8rem); line-height: 0.9; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-background-dark/90 backdrop-blur-md border-b border-white/10 px-6 py-4">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between">
+<div class="flex flex-col leading-none font-black text-xl tracking-tighter">
+<span>MRINJOY</span>
+<span class="text-accent-blue">PARTNERS</span>
+</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-sm font-medium hover:text-accent-blue transition-colors" href="#">About</a>
+<a class="text-sm font-medium hover:text-accent-blue transition-colors" href="#">Services</a>
+<a class="text-sm font-medium hover:text-accent-blue transition-colors" href="#">Insights</a>
+<a class="text-sm font-medium hover:text-accent-blue transition-colors" href="#">Clients</a>
+<a class="text-sm font-medium hover:text-accent-blue transition-colors" href="#">Contact</a>
+</div>
+<button class="bg-slate-100 text-primary px-6 py-3 text-sm font-bold uppercase tracking-widest hover:bg-accent-blue hover:text-white transition-all">
+                Book Consultation
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative pt-20 pb-32 px-6 border-b border-white/10">
+<div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-10">
+<h1 class="text-huge font-black tracking-tighter uppercase mb-12">
+                    Ideas Deserve <br/>
+<span class="text-accent-blue">Defense.</span>
+</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<p class="text-xl md:text-2xl text-slate-400 font-light leading-relaxed">
+                        MRINJOY Partners protects innovation through strategic intellectual property law, patent protection, and trademark enforcement.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 items-start md:items-end md:justify-end">
+<button class="w-full sm:w-auto bg-accent-blue text-white px-8 py-5 font-bold uppercase tracking-tighter text-lg hover:bg-white hover:text-primary transition-all">
+                            Start a Consultation
+                        </button>
+<button class="w-full sm:w-auto border border-white/20 px-8 py-5 font-bold uppercase tracking-tighter text-lg hover:bg-white/10 transition-all">
+                            Explore Services
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Trust Section -->
+<section class="py-20 px-6 border-b border-white/10 overflow-hidden">
+<div class="max-w-[1440px] mx-auto">
+<h2 class="text-xs font-bold uppercase tracking-[0.3em] text-slate-500 mb-12">Trusted Legal Strategy for Innovation-Driven Businesses</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-white/10">
+<div class="bg-background-dark p-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+<div class="h-8 w-32 bg-slate-800" data-alt="Minimal corporate partner logo placeholder"></div>
+</div>
+<div class="bg-background-dark p-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+<div class="h-8 w-32 bg-slate-800" data-alt="Minimal tech company logo placeholder"></div>
+</div>
+<div class="bg-background-dark p-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+<div class="h-8 w-32 bg-slate-800" data-alt="Biotech firm logo placeholder"></div>
+</div>
+<div class="bg-background-dark p-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+<div class="h-8 w-32 bg-slate-800" data-alt="Digital agency logo placeholder"></div>
+</div>
+<div class="bg-background-dark p-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+<div class="h-8 w-32 bg-slate-800" data-alt="Industrial manufacturing logo placeholder"></div>
+</div>
+<div class="bg-background-dark p-12 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+<div class="h-8 w-32 bg-slate-800" data-alt="Global finance logo placeholder"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-32 px-6">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex justify-between items-end mb-20">
+<h2 class="text-6xl md:text-8xl font-black uppercase tracking-tighter">What We <br/><span class="text-accent-blue">Protect</span></h2>
+<span class="hidden md:block text-sm font-mono text-slate-500 pb-4">01 // CORE COMPETENCIES</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10">
+<!-- Service Card 1 -->
+<div class="bg-background-dark p-12 group hover:bg-accent-blue transition-colors cursor-pointer aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-accent-blue group-hover:text-white">description</span>
+<div>
+<h3 class="text-3xl font-bold uppercase mb-4">Patent Filing</h3>
+<p class="text-slate-400 group-hover:text-white/80 transition-colors">Securing your technical innovations through global patent strategies and utility filings.</p>
+</div>
+</div>
+<!-- Service Card 2 -->
+<div class="bg-background-dark p-12 group hover:bg-accent-blue transition-colors cursor-pointer aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-accent-blue group-hover:text-white">verified_user</span>
+<div>
+<h3 class="text-3xl font-bold uppercase mb-4">Trademark</h3>
+<p class="text-slate-400 group-hover:text-white/80 transition-colors">Protecting your brand identity and market position through rigorous trademark registration.</p>
+</div>
+</div>
+<!-- Service Card 3 -->
+<div class="bg-background-dark p-12 group hover:bg-accent-blue transition-colors cursor-pointer aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-accent-blue group-hover:text-white">copyright</span>
+<div>
+<h3 class="text-3xl font-bold uppercase mb-4">Copyright</h3>
+<p class="text-slate-400 group-hover:text-white/80 transition-colors">Comprehensive protection for creative works, software architecture, and content IP.</p>
+</div>
+</div>
+<!-- Service Card 4 -->
+<div class="bg-background-dark p-12 group hover:bg-accent-blue transition-colors cursor-pointer aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-accent-blue group-hover:text-white">draw</span>
+<div>
+<h3 class="text-3xl font-bold uppercase mb-4">Design Rights</h3>
+<p class="text-slate-400 group-hover:text-white/80 transition-colors">Safeguarding the visual uniqueness and industrial design of your physical products.</p>
+</div>
+</div>
+<!-- Service Card 5 -->
+<div class="bg-background-dark p-12 group hover:bg-accent-blue transition-colors cursor-pointer aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-accent-blue group-hover:text-white">rocket_launch</span>
+<div>
+<h3 class="text-3xl font-bold uppercase mb-4">Startup Advisory</h3>
+<p class="text-slate-400 group-hover:text-white/80 transition-colors">Tailored legal infrastructure for early-stage companies navigating complex IP waters.</p>
+</div>
+</div>
+<!-- Service Card 6 -->
+<div class="bg-background-dark p-12 group hover:bg-accent-blue transition-colors cursor-pointer aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-accent-blue group-hover:text-white">gavel</span>
+<div>
+<h3 class="text-3xl font-bold uppercase mb-4">IP Litigation</h3>
+<p class="text-slate-400 group-hover:text-white/80 transition-colors">Vigorous enforcement and defense of your intellectual property in courtrooms worldwide.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Expertise Section -->
+<section class="bg-white text-primary py-32 px-6 overflow-hidden">
+<div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="relative h-[600px] w-full bg-slate-200 overflow-hidden" data-alt="Architectural structure showing glass and steel grid">
+<div class="absolute inset-0 bg-accent-blue mix-blend-multiply opacity-20"></div>
+<img alt="Modern office architecture with structural grids" class="w-full h-full object-cover" data-alt="High-contrast black and white architectural detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgPZCRZUaT1zqm37clDYKfiApsxSbBrzT-tgXWuoW-_rb02KiKw_T0AK7xE2YVX4ZQJ66cvHm4kJDIWc6KdmHLA6RsoEiPd5k7mcy50m93gwCTtykOYLSZq2CNmQ0qQZdXItK659CdY5CIQoq0DzwL6uVuVvSuNj1f-qe9-26TBNkW_HFddXKnNLfnDFvUDeoBIcY2UtTw2GNd64ZnytaBAs5X4G5mQjqSsI3FWORGg-FN3YToFYK2sWVv1y6SB4dtrMSu-KZrNX2-"/>
+</div>
+<div>
+<h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-10">
+                    Intellectual Property, <br/>
+<span class="underline decoration-accent-blue decoration-8 underline-offset-8">Engineered.</span>
+</h2>
+<p class="text-2xl font-light mb-12">
+                    We don't just file papers; we engineer defensive barriers around your most valuable assets. Our methodology combines legal rigor with deep technical understanding.
+                </p>
+<div class="grid grid-cols-2 gap-px bg-primary/10 border border-primary/10">
+<div class="p-8 border-r border-b border-primary/10">
+<span class="block text-4xl font-black mb-2">98%</span>
+<span class="text-xs font-bold uppercase tracking-widest text-slate-500">Patent Success Rate</span>
+</div>
+<div class="p-8 border-b border-primary/10">
+<span class="block text-4xl font-black mb-2">12k+</span>
+<span class="text-xs font-bold uppercase tracking-widest text-slate-500">Trademarks Managed</span>
+</div>
+<div class="p-8 border-r border-primary/10">
+<span class="block text-4xl font-black mb-2">$4B+</span>
+<span class="text-xs font-bold uppercase tracking-widest text-slate-500">Client Value Protected</span>
+</div>
+<div class="p-8">
+<span class="block text-4xl font-black mb-2">45</span>
+<span class="text-xs font-bold uppercase tracking-widest text-slate-500">Global Jurisdictions</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Section -->
+<section class="py-32 px-6 border-y border-white/10">
+<div class="max-w-[1440px] mx-auto">
+<h2 class="text-4xl md:text-6xl font-black uppercase mb-20 tracking-tighter">How Protection <span class="text-accent-blue">Happens</span></h2>
+<div class="flex flex-col lg:flex-row gap-px bg-white/10 border border-white/10">
+<div class="flex-1 bg-background-dark p-12 border-white/10">
+<span class="text-xs font-mono text-accent-blue mb-8 block">01 / CONSULT</span>
+<h3 class="text-2xl font-bold uppercase mb-4">Discovery</h3>
+<p class="text-slate-400 text-sm">Deep dive into your innovation to identify patentable components.</p>
+</div>
+<div class="flex-1 bg-background-dark p-12 border-white/10">
+<span class="text-xs font-mono text-accent-blue mb-8 block">02 / STRATEGIZE</span>
+<h3 class="text-2xl font-bold uppercase mb-4">Mapping</h3>
+<p class="text-slate-400 text-sm">Developing a global filing roadmap aligned with your business goals.</p>
+</div>
+<div class="flex-1 bg-background-dark p-12 border-white/10">
+<span class="text-xs font-mono text-accent-blue mb-8 block">03 / FILE</span>
+<h3 class="text-2xl font-bold uppercase mb-4">Execution</h3>
+<p class="text-slate-400 text-sm">Rigorous preparation and submission to relevant authorities.</p>
+</div>
+<div class="flex-1 bg-background-dark p-12 border-white/10">
+<span class="text-xs font-mono text-accent-blue mb-8 block">04 / PROTECT</span>
+<h3 class="text-2xl font-bold uppercase mb-4">Monitoring</h3>
+<p class="text-slate-400 text-sm">Active surveillance of global markets for potential infringements.</p>
+</div>
+<div class="flex-1 bg-background-dark p-12 border-white/10">
+<span class="text-xs font-mono text-accent-blue mb-8 block">05 / DEFEND</span>
+<h3 class="text-2xl font-bold uppercase mb-4">Enforce</h3>
+<p class="text-slate-400 text-sm">Aggressive legal action to maintain the integrity of your IP.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights Section -->
+<section class="py-32 px-6">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex justify-between items-end mb-20">
+<h2 class="text-6xl md:text-8xl font-black uppercase tracking-tighter">Legal <br/><span class="text-accent-blue">Intelligence</span></h2>
+<a class="group flex items-center gap-4 text-sm font-bold uppercase tracking-widest pb-4" href="#">
+                    View All Articles
+                    <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="group cursor-pointer">
+<div class="aspect-[16/9] bg-slate-800 mb-8 overflow-hidden">
+<img alt="Abstract neural network visualization" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Abstract digital neural network pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMGuW2TkXn0ahgsM2BSOIBIODZm0hbSqDsbQydxavqK0IObVWfkDkYAE1UMUmbAblb3AZbutNI4Iljyq_btjyc_OG1aGiPTAr630M5bIY_uEimrtfamdu5l5b3Lk6tpfYKBwrBS4thm0ZdsL9Kl8mDkakr2Dgrhn8ErsOEIumWmGFjPZGb6df1vHlyRG2Jvh4SHyBYuJqw-lbzNipcjSAiIINQ4mtkWT9V8m92shy5HS8dviXFz3liUtRIGOrHxmBKz5WUbGnizMZV"/>
+</div>
+<span class="text-xs font-bold text-accent-blue uppercase tracking-widest">Patent Strategy</span>
+<h3 class="text-3xl font-black uppercase mt-4 mb-6 leading-tight group-hover:text-accent-blue transition-colors">Navigating Intellectual Property in the Era of Generative AI</h3>
+<p class="text-slate-400 max-w-lg">How foundational models are challenging traditional notions of authorship and patentability in the software sector.</p>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-[16/9] bg-slate-800 mb-8 overflow-hidden">
+<img alt="Circuit board close up" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Macro view of advanced semiconductor circuitry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDbRGH6w7_2kK0toDtOd0CMSgIOHjZPj4um_ueM2X-R7-KLC9LWtXJRl4D2UxMbkiCklE9LBpq6-PybWKiTxMweGjjj11E_qc_462UPMkF1NQNQ5vHaE23FFaIaQSyE3f77-D3RjyNs0hWe2Fzhz72DobyeDHQzMVh3sZHcyw-TuZm_bC75zRC2zCZfSLqn9jf2ku_HAUne2Lf9RPdjek4VXR6bOWRkVJM905KeCGm8eTWvcuA-zqQviWNTODktnof5yD_oOBOiUXd"/>
+</div>
+<span class="text-xs font-bold text-accent-blue uppercase tracking-widest">Industrial Design</span>
+<h3 class="text-3xl font-black uppercase mt-4 mb-6 leading-tight group-hover:text-accent-blue transition-colors">The Semiconductor Battleground: Why Design Rights Matter More Than Ever</h3>
+<p class="text-slate-400 max-w-lg">Protecting the physical architecture of microchips amidst the global hardware supply chain competition.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-white text-primary pt-32 pb-12 px-6">
+<div class="max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-20 mb-32">
+<div class="md:col-span-6">
+<div class="flex flex-col leading-none font-black text-4xl tracking-tighter mb-12">
+<span>MRINJOY</span>
+<span class="text-accent-blue">PARTNERS</span>
+</div>
+<p class="text-xl font-light text-slate-500 max-w-sm mb-12">
+                        Defending the ideas that build the future. Strategic IP law for the modern era.
+                    </p>
+<div class="flex gap-6">
+<a class="w-12 h-12 border border-primary/20 flex items-center justify-center hover:bg-accent-blue hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+</a>
+<a class="w-12 h-12 border border-primary/20 flex items-center justify-center hover:bg-accent-blue hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-sm">share</span>
+</a>
+<a class="w-12 h-12 border border-primary/20 flex items-center justify-center hover:bg-accent-blue hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-sm">public</span>
+</a>
+</div>
+</div>
+<div class="md:col-span-3">
+<h4 class="text-xs font-bold uppercase tracking-[0.2em] mb-10 text-slate-400">Services</h4>
+<ul class="flex flex-col gap-6 text-lg font-bold uppercase">
+<li><a class="hover:text-accent-blue transition-colors" href="#">Patents</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Trademarks</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Copyright</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Litigation</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Trade Secrets</a></li>
+</ul>
+</div>
+<div class="md:col-span-3">
+<h4 class="text-xs font-bold uppercase tracking-[0.2em] mb-10 text-slate-400">Law Firm</h4>
+<ul class="flex flex-col gap-6 text-lg font-bold uppercase">
+<li><a class="hover:text-accent-blue transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">The Team</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Legal Policy</a></li>
+<li><a class="hover:text-accent-blue transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-primary/10 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<span class="text-xs font-mono uppercase text-slate-400">© 2024 MRINJOY PARTNERS LLP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-10 text-xs font-mono uppercase text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Cookie Policy</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
