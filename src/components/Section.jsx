@@ -1,31 +1,38 @@
 import { motion } from 'framer-motion';
 
-const Section = ({ 
-  children, 
-  className = '', 
-  id = '', 
-  borderTop = false, 
+const Section = ({
+  children,
+  className = '',
+  id = '',
+  borderTop = false,
   borderBottom = false,
-  bg = 'bg-[var(--bg-primary)]'
+  bg = '',
+  fullWidth = false,
+  style = {},
 }) => {
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`
-        w-full py-24 md:py-32 px-6 md:px-12 lg:px-24
-        ${bg} 
-        ${borderTop ? 'editorial-border-t' : ''} 
-        ${borderBottom ? 'editorial-border-b' : ''} 
+        w-full py-[72px] md:py-[96px] lg:py-[140px] px-6 md:px-12 lg:px-16
+        ${borderTop ? 'border-t-ui' : ''}
+        ${borderBottom ? 'border-b-ui' : ''}
         ${className}
       `}
+      style={{
+        backgroundColor: bg || 'var(--bg-primary)',
+        ...style,
+      }}
     >
-      <div className="max-w-7xl mx-auto">
-        {children}
-      </div>
+      {fullWidth ? children : (
+        <div className="max-w-[1400px] mx-auto">
+          {children}
+        </div>
+      )}
     </motion.section>
   );
 };
