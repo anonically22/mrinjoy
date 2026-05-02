@@ -1,16 +1,27 @@
-# React + Vite
+# Mrinjoy Partners — Official Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the official website for **Mrinjoy Partners**, a specialized Intellectual Property (IP) law firm. This project was developed as a client work to provide a modern, professional, and editorial-style web presence.
 
-Currently, two official plugins are available:
+## 🚀 Technology Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/) (for ultra-fast development and optimized builds)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) (for smooth page transitions and micro-animations)
+- **Icons**: [Lucide React](https://lucide.dev/) (for clean, minimal iconography)
+- **Styling**: Vanilla CSS (Modern CSS variables) with [Tailwind CSS](https://tailwindcss.com/) for layout utilities.
 
-## React Compiler
+## 📂 Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `src/components/`: Reusable UI components like `Navbar`, `Footer`, and `Section` wrappers.
+- `src/pages/`: Main page entries including `Home.jsx` and the dynamic `ServiceDetail.jsx`.
+- `src/App.jsx`: Root application structure, routing, and global transitions.
+- `src/index.css`: Core design system, typography tokens, and global styles.
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Dynamic Service Pages**: SEO-optimized dedicated pages for all IP services.
+- **Advanced CTA System**: Direct Gmail integration and interactive "Explore Us" navigation.
+- **Legal Compliance**: Built-in disclaimer gate and confirmation flow as per legal guidelines.
+- **Editorial Aesthetics**: Brutalist-inspired layout with premium spacing and typography.
+
+---
+*Crafted for Mrinjoy Partners.*

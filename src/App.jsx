@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import DummyPage from './pages/DummyPage';
+import ServiceDetail from './pages/ServiceDetail';
 import DisclaimerGate from './components/DisclaimerGate';
 import LoadingScreen from './components/LoadingScreen';
 
@@ -13,15 +15,7 @@ const AppContent = () => {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const location = useLocation();
 
-  // Check initial state from localStorage to prevent flash
-  useEffect(() => {
-    if (localStorage.getItem('mrinjoy_disclaimer_accepted') === 'true') {
-      setDisclaimerAccepted(true);
-    }
-    if (localStorage.getItem('mrinjoy_loaded') === 'true') {
-      setLoadingComplete(true);
-    }
-  }, []);
+
 
   const handleDisclaimerAccept = () => {
     setDisclaimerAccepted(true);
@@ -52,12 +46,15 @@ const AppContent = () => {
         style={{ opacity: showContent ? 1 : 0, pointerEvents: showContent ? 'auto' : 'none' }}
       >
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/privacy-policy" element={<DummyPage title="Privacy Policy" />} />
-          <Route path="/terms-of-service" element={<DummyPage title="Terms of Service" />} />
-          <Route path="/disclaimer" element={<DummyPage title="Disclaimer" />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/privacy-policy" element={<DummyPage title="Privacy Policy" />} />
+            <Route path="/terms-of-service" element={<DummyPage title="Terms of Service" />} />
+            <Route path="/disclaimer" element={<DummyPage title="Disclaimer" />} />
+          </Routes>
+        </AnimatePresence>
         <Footer />
       </div>
     </>

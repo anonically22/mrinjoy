@@ -8,7 +8,7 @@ const navLinks = [
   { label: 'Services', href: '/#services' },
   { label: 'About', href: '/#about' },
   { label: 'Process', href: '/#process' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com' },
 ];
 
 const Navbar = () => {
@@ -72,7 +72,7 @@ const Navbar = () => {
 
           {/* Desktop CTA */}
           <a
-            href="mailto:mrinjoypartners@gmail.com"
+            href="/#services"
             className="hidden lg:flex items-center gap-2 group"
             style={{
               fontSize: '12px',
@@ -95,7 +95,7 @@ const Navbar = () => {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            Get Started
+            Explore Us
             <ArrowRight size={12} className="transition-transform duration-300 group-hover:translate-x-1" />
           </a>
 
@@ -146,11 +146,11 @@ const Navbar = () => {
 
             <div className="px-8 pb-8">
               <a
-                href="mailto:mrinjoypartners@gmail.com"
+                href="/#services"
                 className="btn-primary w-full py-4 justify-center"
                 onClick={() => setMobileOpen(false)}
               >
-                Get Started <ArrowRight size={14} />
+                Explore Us <ArrowRight size={14} />
               </a>
             </div>
           </motion.div>

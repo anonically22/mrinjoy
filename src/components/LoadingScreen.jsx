@@ -8,11 +8,6 @@ const LoadingScreen = ({ onComplete }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const loaded = localStorage.getItem(STORAGE_KEY);
-    if (loaded === 'true') {
-      onComplete();
-      return;
-    }
     setShow(true);
 
     const timers = [
@@ -20,7 +15,6 @@ const LoadingScreen = ({ onComplete }) => {
       setTimeout(() => setPhase(2), 1600),   // retract text
       setTimeout(() => setPhase(3), 2200),   // begin exit
       setTimeout(() => {
-        localStorage.setItem(STORAGE_KEY, 'true');
         setShow(false);
         onComplete();
       }, 2800),

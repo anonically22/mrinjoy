@@ -8,16 +8,10 @@ const DisclaimerGate = ({ onAccept }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem(STORAGE_KEY);
-    if (accepted === 'true') {
-      onAccept();
-    } else {
-      setVisible(true);
-    }
-  }, [onAccept]);
+    setVisible(true);
+  }, []);
 
   const handleAgree = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
     setVisible(false);
     onAccept();
   };

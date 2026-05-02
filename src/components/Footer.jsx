@@ -11,13 +11,14 @@ const footerLegal = [
   { label: 'Disclaimer', path: '/disclaimer' }
 ];
 
-const FLink = ({ href, children }) => (
+const FLink = ({ href, children, ...props }) => (
   <a
     href={href}
     className="transition-colors duration-300 w-fit group flex items-center gap-1"
     style={{ fontSize: '15px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}
     onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
     onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.85)'}
+    {...props}
   >
     {children}
     <ArrowUpRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -38,16 +39,27 @@ const Footer = () => (
             protecting innovation, creativity, and commercial identity.
           </p>
           <div className="flex flex-col gap-4 mb-8">
-            {[
-              { icon: Mail, text: 'mrinjoypartners@gmail.com' },
-              { icon: Phone, text: '+91 89106 40567' },
-              { icon: MapPin, text: 'Vadodara, Gujarat India' },
-            ].map(({ icon: Icon, text }, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-                <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}>{text}</span>
-              </div>
-            ))}
+            <a 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 group transition-colors"
+            >
+              <Mail size={14} strokeWidth={1.5} className="text-[var(--accent)] group-hover:text-white transition-colors" />
+              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }} className="group-hover:text-[var(--accent)]">
+                mrinjoypartners@gmail.com
+              </span>
+            </a>
+            <a href="tel:+918910640567" className="flex items-center gap-3 group transition-colors">
+              <Phone size={14} strokeWidth={1.5} className="text-[var(--accent)] group-hover:text-white transition-colors" />
+              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }} className="group-hover:text-[var(--accent)]">
+                +91 89106 40567
+              </span>
+            </a>
+            <div className="flex items-center gap-3">
+              <MapPin size={14} strokeWidth={1.5} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}>Vadodara, Gujarat India</span>
+            </div>
           </div>
           <div className="flex gap-3">
             <motion.a
@@ -71,9 +83,20 @@ const Footer = () => (
             Navigation
           </h4>
           <div className="flex flex-col gap-3.5">
-            {footerNav.map((item) => (
-              <FLink key={item} href={item === 'Home' ? '/#' : `/#${item.toLowerCase()}`}>{item}</FLink>
-            ))}
+            {footerNav.map((item) => {
+              const href = item === 'Home' ? '/#' : item === 'Contact' ? 'https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com' : `/#${item.toLowerCase()}`;
+              const isExternal = item === 'Contact';
+              return (
+                <FLink 
+                  key={item} 
+                  href={href} 
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                >
+                  {item}
+                </FLink>
+              );
+            })}
           </div>
         </div>
 
@@ -117,11 +140,13 @@ const Footer = () => (
             </Link>
           ))}
           <a
-            href="mailto:anirbaan703@gmail.com"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=anirbaan703@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="transition-colors duration-300"
             style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.6)' }}
-            onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
-            onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}
           >
             Report Issue
           </a>

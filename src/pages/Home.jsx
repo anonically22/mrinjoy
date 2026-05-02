@@ -1,20 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText, Shield, Copyright, Pencil, Gavel, Lightbulb,
   Target, Zap, Award, Handshake,
-  ArrowRight, Plus, ChevronRight,
+  ArrowRight, Plus, ChevronRight, Mail,
 } from 'lucide-react';
 import Section from '../components/Section';
 
 /* ─── Data ─── */
 const services = [
-  { title: 'Patent Filing', icon: FileText, desc: 'Secure exclusive rights over your inventions through strategic patent filing and prosecution.' },
-  { title: 'Trademark Registration', icon: Shield, desc: 'Protect your brand identity, logos, and market reputation with trademark solutions.' },
-  { title: 'Copyright Protection', icon: Copyright, desc: 'Protect original creative works — software, content, music, and digital assets.' },
-  { title: 'Design Rights', icon: Pencil, desc: 'Safeguard the visual identity and industrial appearance of your products.' },
-  { title: 'IP Litigation', icon: Gavel, desc: 'Enforce your rights against infringement, counterfeiting, and unauthorized use.' },
-  { title: 'IP Advisory', icon: Lightbulb, desc: 'Strategic IP consultation for startups, enterprises, and innovators.' },
+  { title: 'Patent Filing', slug: 'patent-filing', icon: FileText, desc: 'Secure exclusive rights over your inventions through strategic patent filing and prosecution.' },
+  { title: 'Trademark Registration', slug: 'trademark-registration', icon: Shield, desc: 'Protect your brand identity, logos, and market reputation with trademark solutions.' },
+  { title: 'Copyright Protection', slug: 'copyright-protection', icon: Copyright, desc: 'Protect original creative works — software, content, music, and digital assets.' },
+  { title: 'Design Rights', slug: 'design-rights', icon: Pencil, desc: 'Safeguard the visual identity and industrial appearance of your products.' },
+  { title: 'IP Litigation', slug: 'ip-litigation', icon: Gavel, desc: 'Enforce your rights against infringement, counterfeiting, and unauthorized use.' },
+  { title: 'IP Advisory', slug: 'ip-advisory', icon: Lightbulb, desc: 'Strategic IP consultation for startups, enterprises, and innovators.' },
 ];
 
 const whyUs = [
@@ -49,7 +50,7 @@ const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transi
 
 /* ─── Counter Component ─── */
 const AnimatedCounter = ({ value, label }) => (
-  <motion.div variants={fadeUp} className="relative">
+  <motion.div variants={fadeUp} className="relative text-center">
     <span className="block font-extrabold tracking-tighter" style={{ fontSize: '1.778rem', fontFamily: 'var(--font-heading)' }}>{value}</span>
     <span className="label mt-2 block">{label}</span>
   </motion.div>
@@ -82,7 +83,12 @@ const Home = () => {
 
 
   return (
-    <main>
+    <motion.main
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
       {/* ── HERO ── */}
       <Section className="min-h-[90vh] flex flex-col justify-center relative overflow-hidden !pt-16 !pb-24" borderBottom>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-14 relative z-10">
@@ -103,10 +109,12 @@ const Home = () => {
               We help businesses, founders, and innovators secure their intellectual property through strategic legal protection — from patents and trademarks to copyrights and design rights.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="mailto:mrinjoypartners@gmail.com" className="btn-primary group">
-                Book Consultation <ArrowRight className="btn-arrow" size={14} />
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary group">
+                Talk to an Expert <ArrowRight className="btn-arrow" size={14} />
               </a>
-              <a href="#services" className="btn-outline">Explore Services</a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline flex items-center gap-2">
+                <Mail size={16} /> Mail Us
+              </a>
             </div>
           </motion.div>
         </div>
@@ -139,23 +147,35 @@ const Home = () => {
           {services.map((svc, i) => {
             const Icon = svc.icon;
             return (
-              <motion.div key={i} variants={fadeUp}
-                className="flex flex-col justify-between min-h-[300px] group cursor-pointer transition-all duration-400"
-                style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-dark)'; e.currentTarget.style.color = 'var(--text-inverse)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-surface)'; e.currentTarget.style.color = 'var(--text-main)'; }}>
-                <div className="mb-10">
-                  <div className="w-12 h-12 flex items-center justify-center mb-6 transition-all duration-400"
-                    style={{ border: '1px solid var(--border-ui)', color: 'var(--accent)' }}>
-                    <Icon size={20} strokeWidth={1.5} />
+              <Link key={i} to={`/services/${svc.slug}`} className="group">
+                <motion.div variants={fadeUp}
+                  className="flex flex-col justify-between h-full min-h-[300px] transition-all duration-400"
+                  style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)' }}
+                  onMouseEnter={(e) => { 
+                    e.currentTarget.style.backgroundColor = 'var(--bg-dark)'; 
+                    e.currentTarget.style.color = 'var(--text-inverse)';
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.borderColor = 'var(--accent)';
+                  }}
+                  onMouseLeave={(e) => { 
+                    e.currentTarget.style.backgroundColor = 'var(--bg-surface)'; 
+                    e.currentTarget.style.color = 'var(--text-main)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = 'var(--border-ui)';
+                  }}>
+                  <div className="mb-10">
+                    <div className="w-12 h-12 flex items-center justify-center mb-6 transition-all duration-400"
+                      style={{ border: '1px solid var(--border-ui)', color: 'var(--accent)' }}>
+                      <Icon size={20} strokeWidth={1.5} className="group-hover:scale-110 transition-transform duration-400" />
+                    </div>
+                    <span className="font-medium font-mono" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>
                   </div>
-                  <span className="font-medium font-mono" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>
-                </div>
-                <div>
-                  <h3 className="font-bold tracking-tight mb-3" style={{ fontSize: '1.222rem', fontFamily: 'var(--font-heading)' }}>{svc.title}</h3>
-                  <p style={{ fontSize: '0.833rem', lineHeight: '1.65', color: 'var(--text-muted)' }}>{svc.desc}</p>
-                </div>
-              </motion.div>
+                  <div>
+                    <h3 className="font-bold tracking-tight mb-3" style={{ fontSize: '1.222rem', fontFamily: 'var(--font-heading)' }}>{svc.title}</h3>
+                    <p style={{ fontSize: '0.833rem', lineHeight: '1.65', color: 'var(--text-muted)' }} className="group-hover:text-white/70">{svc.desc}</p>
+                  </div>
+                </motion.div>
+              </Link>
             );
           })}
         </motion.div>
@@ -175,14 +195,17 @@ const Home = () => {
               <p>From patents and trademarks to copyrights and industrial designs, we provide end-to-end legal support for creators, startups, and enterprises.</p>
             </div>
             <div className="mt-10 flex items-center gap-5">
-              <a href="mailto:mrinjoypartners@gmail.com" className="btn-outline">Learn More <ChevronRight size={14} /></a>
+            <div className="mt-10 flex flex-wrap items-center gap-5">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary">Talk to an Expert</a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline">Mail Us</a>
+            </div>
               <div className="accent-line" />
             </div>
           </div>
 
           <motion.div className="lg:col-span-5" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
             <div className="flex flex-col gap-0" style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-ui)' }}>
-              <div className="label mb-6">Est. 2023 · Kolkata</div>
+              <div className="label mb-6">Est. 2022 · Kolkata</div>
               {['Patent Strategy', 'Trademark Protection', 'Copyright Enforcement', 'IP Litigation'].map((w, i) => (
                 <div key={i} className="flex items-center gap-4 border-b-ui" style={{ padding: '0.889rem 0' }}>
                   <span className="font-mono font-medium" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>
@@ -302,9 +325,14 @@ const Home = () => {
               <p className="font-medium mb-12 max-w-md leading-relaxed" style={{ fontSize: '0.889rem', color: 'rgba(255,255,255,0.55)' }}>
                 Our team of IP experts is ready to help you build a robust protection strategy.
               </p>
-               <a href="mailto:mrinjoypartners@gmail.com" className="btn-primary group px-10 py-4">
-                Talk to an Expert <ArrowRight className="btn-arrow" size={15} />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary group px-10 py-4">
+                  Talk to an Expert <ArrowRight className="btn-arrow" size={15} />
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline px-10 py-4 flex items-center gap-2" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
+                  <Mail size={16} /> Mail Us
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -315,7 +343,7 @@ const Home = () => {
         </div>
       </section>
 
-    </main>
+    </motion.main>
   );
 };
 
