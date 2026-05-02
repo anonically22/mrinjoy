@@ -291,23 +291,7 @@
   transform: rotate(25deg);
 }
 
-/* ─── Testimonial Dots ─── */
-.testimonial-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--border-ui);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.35s var(--ease-premium);
-}
 
-.testimonial-dot.active {
-  background: var(--accent);
-  width: 28px;
-  border-radius: 3px;
-}
 
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 3px; }

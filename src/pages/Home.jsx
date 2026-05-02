@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText, Shield, Copyright, Pencil, Gavel, Lightbulb,
   Target, Zap, Award, Handshake,
-  ArrowRight, Plus, Quote, ChevronRight,
+  ArrowRight, Plus, ChevronRight,
 } from 'lucide-react';
 import Section from '../components/Section';
 
@@ -42,11 +42,7 @@ const faqs = [
   { q: 'Can startups protect ideas early?', a: 'Yes. Provisional patents, trademark applications, and NDA frameworks are critical for early-stage IP protection and fundraising.' },
 ];
 
-const testimonials = [
-  { quote: "Mrinjoy Partners transformed how we think about intellectual property. Their strategic approach gave us a competitive edge we didn't know was possible.", name: 'Ananya Mehta', role: 'CTO, TechVenture Labs' },
-  { quote: "The team's precision in trademark registration is unmatched. They protected our brand across 12 international markets seamlessly.", name: 'Rajiv Sharma', role: 'Founder, NovaBrand Co.' },
-  { quote: "From consultation to enforcement, Mrinjoy Partners has been invaluable in safeguarding our creative assets and design innovations.", name: 'Priya Kapoor', role: 'Head of Design, Luxe Studios' },
-];
+
 
 const stagger = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
@@ -81,13 +77,9 @@ const FAQItem = ({ faq, index, isOpen, onToggle }) => (
 
 const Home = () => {
   const [openFaq, setOpenFaq] = useState(null);
-  const [activeTesti, setActiveTesti] = useState(0);
   const toggleFaq = useCallback((i) => setOpenFaq(p => p === i ? null : i), []);
 
-  useEffect(() => {
-    const t = setInterval(() => setActiveTesti(p => (p + 1) % testimonials.length), 6000);
-    return () => clearInterval(t);
-  }, []);
+
 
   return (
     <main>
@@ -111,7 +103,7 @@ const Home = () => {
               We help businesses, founders, and innovators secure their intellectual property through strategic legal protection — from patents and trademarks to copyrights and design rights.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#contact" className="btn-primary group">
+              <a href="mailto:mrinjoypartners@gmail.com" className="btn-primary group">
                 Book Consultation <ArrowRight className="btn-arrow" size={14} />
               </a>
               <a href="#services" className="btn-outline">Explore Services</a>
@@ -183,7 +175,7 @@ const Home = () => {
               <p>From patents and trademarks to copyrights and industrial designs, we provide end-to-end legal support for creators, startups, and enterprises.</p>
             </div>
             <div className="mt-10 flex items-center gap-5">
-              <a href="#contact" className="btn-outline">Learn More <ChevronRight size={14} /></a>
+              <a href="mailto:mrinjoypartners@gmail.com" className="btn-outline">Learn More <ChevronRight size={14} /></a>
               <div className="accent-line" />
             </div>
           </div>
@@ -296,40 +288,7 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* ── TESTIMONIALS ── */}
-      <Section id="testimonials" className="pb-0 lg:pb-0" borderBottom bg="var(--bg-surface)">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mb-14">
-          <div className="label-accent mb-4">Testimonials</div>
-          <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.111rem)' }}>
-            Trusted by<br />Founders <span style={{ color: 'var(--accent)' }}>&amp; Innovators</span>
-          </h2>
-        </motion.div>
-        <AnimatePresence mode="wait">
-          <motion.div key={activeTesti}
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.4 }}
-            style={{ padding: '2rem 2.222rem', backgroundColor: 'var(--bg-alternate)', border: '1px solid var(--border-ui)' }}>
-            <Quote size={32} strokeWidth={1} style={{ color: 'var(--accent)', opacity: 0.25 }} className="mb-8" />
-            <blockquote className="font-semibold tracking-tight leading-snug mb-12 max-w-3xl" style={{ fontSize: 'clamp(1.111rem, 2.5vw, 1.556rem)', fontFamily: 'var(--font-heading)' }}>
-              "{testimonials[activeTesti].quote}"
-            </blockquote>
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 flex items-center justify-center text-white font-bold" style={{ fontSize: '0.778rem', background: 'var(--accent)' }}>
-                {testimonials[activeTesti].name.charAt(0)}
-              </div>
-              <div>
-                <div className="font-semibold" style={{ fontSize: '0.889rem' }}>{testimonials[activeTesti].name}</div>
-                <div className="font-medium" style={{ fontSize: '0.778rem', color: 'var(--text-muted)' }}>{testimonials[activeTesti].role}</div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-        <div className="flex items-center gap-2 mt-8 pb-10">
-          {testimonials.map((_, i) => (
-            <button key={i} onClick={() => setActiveTesti(i)} className={`testimonial-dot ${i === activeTesti ? 'active' : ''}`} aria-label={`Testimonial ${i + 1}`} />
-          ))}
-        </div>
-      </Section>
+
 
       {/* ── CTA ── */}
       <section id="contact" className="relative overflow-hidden" style={{ background: 'var(--bg-cta)' }}>
@@ -343,7 +302,7 @@ const Home = () => {
               <p className="font-medium mb-12 max-w-md leading-relaxed" style={{ fontSize: '0.889rem', color: 'rgba(255,255,255,0.55)' }}>
                 Our team of IP experts is ready to help you build a robust protection strategy.
               </p>
-              <a href="#contact" className="btn-primary group px-10 py-4">
+               <a href="mailto:mrinjoypartners@gmail.com" className="btn-primary group px-10 py-4">
                 Talk to an Expert <ArrowRight className="btn-arrow" size={15} />
               </a>
             </div>

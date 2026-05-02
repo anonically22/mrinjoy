@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Linkedin, Twitter, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
+import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import { LogoFull } from './Logo';
 import { Link } from 'react-router-dom';
 
@@ -39,9 +39,9 @@ const Footer = () => (
           </p>
           <div className="flex flex-col gap-4 mb-8">
             {[
-              { icon: Mail, text: 'contact@mrinjoypartners.com' },
-              { icon: Phone, text: '+91 98765 43210' },
-              { icon: MapPin, text: 'Kolkata, West Bengal, India' },
+              { icon: Mail, text: 'mrinjoypartners@gmail.com' },
+              { icon: Phone, text: '+91 89106 40567' },
+              { icon: MapPin, text: 'Vadodara, Gujarat India' },
             ].map(({ icon: Icon, text }, i) => (
               <div key={i} className="flex items-center gap-3">
                 <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--accent)', flexShrink: 0 }} />
@@ -50,19 +50,18 @@ const Footer = () => (
             ))}
           </div>
           <div className="flex gap-3">
-            {[Linkedin, Twitter].map((Icon, i) => (
-              <motion.a
-                key={i}
-                href="#"
-                whileHover={{ y: -2 }}
-                className="w-9 h-9 flex items-center justify-center transition-all duration-300"
-                style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.85)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
-              >
-                <Icon size={14} strokeWidth={1.5} />
-              </motion.a>
-            ))}
+            <motion.a
+              href="https://www.linkedin.com/in/anirbaan-sarkar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -2 }}
+              className="w-9 h-9 flex items-center justify-center transition-all duration-300"
+              style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.85)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
+            >
+              <Linkedin size={14} strokeWidth={1.5} />
+            </motion.a>
           </div>
         </div>
 
@@ -117,6 +116,15 @@ const Footer = () => (
               {item.label}
             </Link>
           ))}
+          <a
+            href="mailto:anirbaan703@gmail.com"
+            className="transition-colors duration-300"
+            style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.6)' }}
+            onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
+            onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}
+          >
+            Report Issue
+          </a>
         </div>
       </div>
     </div>

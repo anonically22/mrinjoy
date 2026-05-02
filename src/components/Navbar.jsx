@@ -72,7 +72,7 @@ const Navbar = () => {
 
           {/* Desktop CTA */}
           <a
-            href="/#contact"
+            href="mailto:mrinjoypartners@gmail.com"
             className="hidden lg:flex items-center gap-2 group"
             style={{
               fontSize: '12px',
@@ -146,7 +146,7 @@ const Navbar = () => {
 
             <div className="px-8 pb-8">
               <a
-                href="/#contact"
+                href="mailto:mrinjoypartners@gmail.com"
                 className="btn-primary w-full py-4 justify-center"
                 onClick={() => setMobileOpen(false)}
               >
