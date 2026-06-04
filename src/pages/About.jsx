@@ -33,7 +33,7 @@ const About = () => {
       <SEOHead
         title="About Us — Intellectual Property Law Firm"
         description="Learn about MRINJOY Partners — an Intellectual Property law practice dedicated to protecting innovation, creativity, and commercial identity across India."
-        keywords="About MRINJOY Partners, IP Law Firm India, Intellectual Property Attorneys, Vadodara IP Lawyer"
+        keywords="About MRINJOY Partners, IP Law Firm India, Intellectual Property Attorneys, Pan-India IP Services"
         path="/about"
         jsonLd={[breadcrumbs]}
       />

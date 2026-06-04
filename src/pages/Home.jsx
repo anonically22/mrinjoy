@@ -214,8 +214,7 @@ const Home = () => {
               <span style={{ color: 'var(--accent)' }}>Trusted by Businesses.</span>
             </motion.h2>
             <div className="space-y-5" style={{ fontSize: '1rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>
-              <p>MRINJOY Partners is an intellectual property–focused legal practice dedicated to protecting innovation, creativity, and commercial identity across India.</p>
-              <p>From <strong>Patent Filing</strong> and <strong>Trademark Registration</strong> to <strong>Copyright Registration</strong> and industrial <strong>Design Protection</strong>, we provide end-to-end legal support for creators, startups, and enterprises.</p>
+              <p>MRINJOY Partners is an Intellectual Property Law Firm providing <strong>Trademark Registration</strong>, <strong>Patent Filing</strong>, <strong>Copyright Registration</strong>, <strong>Design Protection</strong>, <strong>Brand Protection</strong>, and <strong>IP Consultation</strong> services for startups, businesses, creators, and innovators across India.</p>
             </div>
             <div className="mt-10 flex items-center gap-5">
             <div className="mt-10 flex flex-wrap items-center gap-5">
@@ -228,7 +227,7 @@ const Home = () => {
 
           <motion.div className="lg:col-span-5" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
             <div className="flex flex-col gap-0" style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-ui)' }}>
-              <div className="label mb-6">Est. 2022 · Vadodara</div>
+              <div className="label mb-6">Est. 2022 · Serving clients across India</div>
               {['Patent Strategy', 'Trademark Protection', 'Copyright Enforcement', 'IP Litigation'].map((w, i) => (
                 <div key={i} className="flex items-center gap-4 border-b-ui" style={{ padding: '0.889rem 0' }}>
                   <span className="font-mono font-medium" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>

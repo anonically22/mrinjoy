@@ -7,9 +7,9 @@ export const SITE_URL = 'https://www.mrinjoypartners.com';
 export const SITE_NAME = 'MRINJOY Partners';
 export const SITE_TITLE = 'MRINJOY Partners | Intellectual Property Law Firm';
 export const SITE_DESCRIPTION =
-  'MRINJOY Partners provides professional Intellectual Property legal services including Trademark Registration, Patent Filing, Copyright Registration, Design Protection, Brand Protection, and IP Consultation services across India.';
+  'MRINJOY Partners is an Intellectual Property Law Firm providing Trademark Registration, Patent Filing, Copyright Registration, Design Protection, Brand Protection, and IP Consultation services for businesses, startups, and individuals across India.';
 export const SITE_KEYWORDS =
-  'MRINJOY Partners, Intellectual Property Lawyer, IP Law Firm India, Trademark Registration India, Patent Filing India, Copyright Registration India, Design Registration India, Brand Protection, Trademark Attorney, Patent Attorney, Legal Services India, Intellectual Property Services';
+  'MRINJOY Partners, Intellectual Property Law Firm, Trademark Registration, Patent Filing, Copyright Registration, Design Registration, Brand Protection, IP Consultation, Trademark Attorney India, Patent Attorney India, Intellectual Property Services India';
 export const OG_IMAGE = `${SITE_URL}/og-image.png`;
 export const LOCALE = 'en_IN';
 
@@ -39,28 +39,8 @@ export const canonicalUrl = (path = '/') => {
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: SITE_NAME,
-  url: SITE_URL,
-  logo: `${SITE_URL}/favicon.svg`,
-  description: SITE_DESCRIPTION,
-  foundingDate: '2022',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Vadodara',
-    addressRegion: 'Gujarat',
-    addressCountry: 'IN',
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+91-89106-40567',
-    contactType: 'customer service',
-    email: 'mrinjoypartners@gmail.com',
-    areaServed: 'IN',
-    availableLanguage: ['English', 'Hindi'],
-  },
-  sameAs: [
-    'https://www.linkedin.com/in/anirbaan-sarkar/',
-  ],
+  name: 'MRINJOY Partners',
+  url: 'https://www.mrinjoypartners.com'
 };
 
 /**
@@ -69,33 +49,17 @@ export const organizationSchema = {
 export const legalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
-  name: SITE_NAME,
-  description: SITE_DESCRIPTION,
-  url: SITE_URL,
-  logo: `${SITE_URL}/favicon.svg`,
-  image: OG_IMAGE,
-  foundingDate: '2022',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Vadodara',
-    addressRegion: 'Gujarat',
-    addressCountry: 'IN',
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'India',
-  },
+  name: 'MRINJOY Partners',
+  url: 'https://www.mrinjoypartners.com',
+  areaServed: 'India',
   serviceType: [
     'Trademark Registration',
     'Patent Filing',
     'Copyright Registration',
     'Design Registration',
-    'IP Consultation',
     'Brand Protection',
-  ],
-  telephone: '+91-89106-40567',
-  email: 'mrinjoypartners@gmail.com',
-  priceRange: '$$',
+    'IP Consultation',
+  ]
 };
 
 /**

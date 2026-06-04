@@ -58,7 +58,7 @@ const Footer = () => (
             </a>
             <div className="flex items-center gap-3">
               <MapPin size={14} strokeWidth={1.5} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}>Vadodara, Gujarat India</span>
+              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}>Serving clients across India</span>
             </div>
           </div>
           <div className="flex gap-3">
