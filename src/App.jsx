@@ -4,10 +4,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import About from './pages/About';
 import DummyPage from './pages/DummyPage';
 import ServiceDetail from './pages/ServiceDetail';
 import DisclaimerGate from './components/DisclaimerGate';
 import LoadingScreen from './components/LoadingScreen';
+
+// Scroll-to-top on route change for SPA navigation
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 // Wrapper component to handle the loading/disclaimer logic for the main app
 const AppContent = () => {
@@ -34,6 +44,7 @@ const AppContent = () => {
 
   return (
     <>
+      <ScrollToTop />
       {isHomePage && <DisclaimerGate onAccept={handleDisclaimerAccept} />}
       
       {isHomePage && disclaimerAccepted && !loadingComplete && (
@@ -49,6 +60,7 @@ const AppContent = () => {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/privacy-policy" element={<DummyPage title="Privacy Policy" />} />
             <Route path="/terms-of-service" element={<DummyPage title="Terms of Service" />} />

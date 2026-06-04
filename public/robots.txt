@@ -1,0 +1,8 @@
+# Robots.txt — MRINJOY Partners
+# https://www.mrinjoypartners.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.mrinjoypartners.com/sitemap.xml

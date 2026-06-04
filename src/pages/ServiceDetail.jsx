@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -6,14 +5,16 @@ import {
   CheckCircle2, ChevronRight, Mail, ArrowLeft
 } from 'lucide-react';
 import Section from '../components/Section';
+import SEOHead from '../seo/SEOHead';
+import { SITE_URL, servicePageSEO, breadcrumbSchema } from '../seo/seoConfig';
 
 const serviceData = {
   'patent-filing': {
     title: 'Patent Filing',
     icon: FileText,
-    heroTitle: 'Protect Innovation Before It\'s Copied',
-    heroDesc: 'Secure exclusive legal rights over your inventions with strategic patent filing, prosecution, and long-term protection.',
-    overview: 'A patent gives inventors exclusive legal rights to prevent unauthorized use, manufacturing, or sale of their inventions.',
+    heroTitle: 'Patent Filing Services — Protect Innovation Before It\'s Copied',
+    heroDesc: 'Secure exclusive legal rights over your inventions with strategic patent filing, prosecution, and long-term protection across India.',
+    overview: 'A patent gives inventors exclusive legal rights to prevent unauthorized use, manufacturing, or sale of their inventions. MRINJOY Partners provides comprehensive Patent Filing services in India, guiding innovators from patentability assessment through prosecution and grant.',
     whoNeeds: [
       'Startup founders', 'Product innovators', 'Engineers', 
       'Technology companies', 'Researchers', 'Manufacturers'
@@ -30,14 +31,13 @@ const serviceData = {
       { q: 'Can software be patented?', a: 'Yes, if it meets the criteria of novelty, non-obviousness, and industrial application, often as a computer-implemented invention.' },
       { q: 'What makes an invention patentable?', a: 'It must be new (novelty), involve an inventive step (non-obvious), and be capable of industrial application.' }
     ],
-    metaDesc: 'Secure exclusive legal rights over your inventions with Mrinjoy Partners. Strategic patent filing, prosecution, and protection.'
   },
   'trademark-registration': {
     title: 'Trademark Registration',
     icon: Shield,
-    heroTitle: 'Protect the Identity Behind Your Brand',
-    heroDesc: 'Register your brand name, logo, and identity to build stronger legal ownership.',
-    overview: 'Trademark registration protects your brand identity and prevents unauthorized use.',
+    heroTitle: 'Trademark Registration — Protect the Identity Behind Your Brand',
+    heroDesc: 'Register your brand name, logo, and identity to build stronger legal ownership and Brand Protection across India.',
+    overview: 'Trademark Registration protects your brand identity and prevents unauthorized use. MRINJOY Partners provides expert Trademark Registration services in India, helping businesses secure their logos, brand names, and commercial identity.',
     whoNeeds: [
       'Startups', 'Small businesses', 'Founders', 'Agencies', 'E-commerce brands'
     ],
@@ -48,18 +48,17 @@ const serviceData = {
       'Identity proof', 'Business proof', 'Logo', 'Address proof'
     ],
     faqs: [
-      { q: 'How long does registration take?', a: 'Typically 12-18 months, but you can start using the ™ symbol immediately after filing.' },
+      { q: 'How long does Trademark Registration take?', a: 'Typically 12-18 months, but you can start using the ™ symbol immediately after filing.' },
       { q: 'Can I trademark my logo?', a: 'Yes, logos, brand names, and even unique shapes or colors can be trademarked.' },
       { q: 'What if someone copies my brand?', a: 'Registration gives you the legal standing to file for infringement and claim damages.' }
     ],
-    metaDesc: 'Protect your brand identity and logos. Expert trademark registration and enforcement services by Mrinjoy Partners.'
   },
   'copyright-protection': {
     title: 'Copyright Protection',
     icon: Copyright,
-    heroTitle: 'Protect Original Creative Work',
-    heroDesc: 'Protect content, software, music, designs, and digital assets with legal copyright protection.',
-    overview: 'Copyright protects original works from unauthorized reproduction or misuse.',
+    heroTitle: 'Copyright Registration — Protect Original Creative Work',
+    heroDesc: 'Protect content, software, music, designs, and digital assets with professional Copyright Registration services in India.',
+    overview: 'Copyright Registration protects original works from unauthorized reproduction or misuse. MRINJOY Partners provides comprehensive Copyright Registration services in India for software, content, music, and digital assets.',
     whoNeeds: [
       'Content creators', 'Software developers', 'Designers', 'Writers', 'Artists', 'Media companies'
     ],
@@ -67,43 +66,39 @@ const serviceData = {
       'Work Review', 'Documentation', 'Filing', 'Registration'
     ],
     faqs: [
-      { q: 'Do I need copyright registration?', a: 'While copyright is automatic upon creation, registration is vital for legal enforcement and statutory damages.' },
+      { q: 'Do I need Copyright Registration?', a: 'While copyright is automatic upon creation, registration is vital for legal enforcement and statutory damages.' },
       { q: 'Is software protected by copyright?', a: 'Yes, source code and literal elements of software are protected under copyright law as literary works.' }
     ],
-    metaDesc: 'Protect your creative works, software, and digital assets. Professional copyright registration and advisory.'
   },
   'design-rights': {
     title: 'Design Rights',
     icon: Pencil,
-    heroTitle: 'Protect the Way Your Product Looks',
-    heroDesc: 'Secure exclusive legal rights over the visual and industrial appearance of your products.',
-    overview: 'Design registration protects the visual identity, shape, and unique appearance of products.',
+    heroTitle: 'Design Registration — Protect the Way Your Product Looks',
+    heroDesc: 'Secure exclusive legal rights over the visual and industrial appearance of your products with Design Registration services in India.',
+    overview: 'Design Registration protects the visual identity, shape, and unique appearance of products. MRINJOY Partners provides Design Registration services across India, helping businesses safeguard the aesthetic aspects of their products.',
     whoNeeds: [
       'Product companies', 'Fashion brands', 'Industrial designers', 'Manufacturers'
     ],
-    metaDesc: 'Secure exclusive rights for your product designs. Industrial design registration and protection strategies.'
   },
   'ip-litigation': {
     title: 'IP Litigation',
     icon: Gavel,
-    heroTitle: 'Defend Your Rights When They\'re Challenged',
-    heroDesc: 'Take legal action against infringement, unauthorized use, and intellectual property disputes.',
-    overview: 'IP litigation helps enforce rights against misuse, counterfeiting, and infringement.',
+    heroTitle: 'IP Litigation — Defend Your Rights When They\'re Challenged',
+    heroDesc: 'Take legal action against infringement, unauthorized use, and intellectual property disputes with expert IP litigation services.',
+    overview: 'IP litigation helps enforce rights against misuse, counterfeiting, and infringement. MRINJOY Partners provides strategic IP litigation and enforcement services across India.',
     process: [
       'Case Assessment', 'Strategy Planning', 'Notice & Action', 'Resolution'
     ],
-    metaDesc: 'Expert IP litigation and enforcement services. Defend your patents, trademarks, and copyrights against infringement.'
   },
   'ip-advisory': {
     title: 'IP Advisory',
     icon: Lightbulb,
-    heroTitle: 'Strategic Legal Guidance for IP',
-    heroDesc: 'Build stronger legal protection strategies with expert IP advisory.',
-    overview: 'IP advisory helps businesses protect, structure, and grow their intellectual property strategically.',
+    heroTitle: 'IP Consultation — Strategic Legal Guidance for Intellectual Property',
+    heroDesc: 'Build stronger legal protection strategies with expert IP Consultation and advisory services from MRINJOY Partners.',
+    overview: 'IP Consultation helps businesses protect, structure, and grow their intellectual property strategically. MRINJOY Partners provides comprehensive IP advisory services including portfolio management, risk assessment, and licensing advice.',
     included: [
       'Portfolio strategy', 'Risk assessment', 'Licensing advice', 'IP audits', 'Protection planning'
     ],
-    metaDesc: 'Strategic IP consultation and portfolio management. Align your intellectual property with business growth.'
   }
 };
 
@@ -115,39 +110,47 @@ const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transi
 const ServiceDetail = () => {
   const { slug } = useParams();
   const data = serviceData[slug];
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (data) {
-      document.title = `${data.title} | Mrinjoy Partners`;
-      
-      // Update Meta Description
-      let meta = document.querySelector('meta[name="description"]');
-      if (meta) {
-        meta.setAttribute('content', data.metaDesc);
-      } else {
-        meta = document.createElement('meta');
-        meta.name = "description";
-        meta.content = data.metaDesc;
-        document.head.appendChild(meta);
-      }
-
-      // Update Canonical
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) {
-        canonical.setAttribute('href', window.location.href);
-      } else {
-        canonical = document.createElement('link');
-        canonical.rel = "canonical";
-        canonical.href = window.location.href;
-        document.head.appendChild(canonical);
-      }
-    }
-  }, [data, slug]);
+  const seoData = servicePageSEO[slug];
 
   if (!data) return <div className="min-h-screen flex items-center justify-center">Service not found.</div>;
 
   const Icon = data.icon;
+  const servicePath = `/services/${slug}`;
+
+  const breadcrumbs = breadcrumbSchema([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Services', url: `${SITE_URL}/#services` },
+    { name: data.title, url: `${SITE_URL}${servicePath}` },
+  ]);
+
+  // Per-service JSON-LD
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: data.title,
+    description: data.overview,
+    provider: {
+      '@type': 'LegalService',
+      name: 'MRINJOY Partners',
+      url: SITE_URL,
+    },
+    areaServed: { '@type': 'Country', name: 'India' },
+    url: `${SITE_URL}${servicePath}`,
+  };
+
+  // FAQ Schema for this service page
+  const faqSchema = data.faqs ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: data.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  } : null;
+
+  const jsonLdSchemas = [breadcrumbs, serviceSchema];
+  if (faqSchema) jsonLdSchemas.push(faqSchema);
 
   return (
     <motion.main
@@ -156,6 +159,14 @@ const ServiceDetail = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <SEOHead
+        title={seoData?.title || data.title}
+        description={seoData?.description || data.heroDesc}
+        keywords={seoData?.keywords}
+        path={servicePath}
+        jsonLd={jsonLdSchemas}
+      />
+
       {/* ── HERO ── */}
       <Section className="!pt-32 !pb-24 border-bottom" borderBottom>
         <div className="mb-12">
@@ -164,6 +175,17 @@ const ServiceDetail = () => {
             Back to Services
           </Link>
         </div>
+
+        {/* Breadcrumb nav (visible) */}
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <ol className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-light)' }}>
+            <li><Link to="/" className="hover:text-[var(--accent)] transition-colors">Home</Link></li>
+            <li><span className="mx-1">/</span></li>
+            <li><Link to="/#services" className="hover:text-[var(--accent)] transition-colors">Services</Link></li>
+            <li><span className="mx-1">/</span></li>
+            <li><span style={{ color: 'var(--text-main)', fontWeight: 500 }}>{data.title}</span></li>
+          </ol>
+        </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           <motion.div className="lg:col-span-8" variants={stagger} initial="hidden" animate="show">
@@ -231,7 +253,7 @@ const ServiceDetail = () => {
                 <div className="space-y-8">
                   {data.faqs.map((faq, i) => (
                     <div key={i}>
-                      <h4 className="font-bold mb-3" style={{ fontSize: '1.111rem' }}>{faq.q}</h4>
+                      <h3 className="font-bold mb-3" style={{ fontSize: '1.111rem' }}>{faq.q}</h3>
                       <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>{faq.a}</p>
                     </div>
                   ))}

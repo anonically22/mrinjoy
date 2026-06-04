@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText, Shield, Copyright, Pencil, Gavel, Lightbulb,
   Target, Zap, Award, Handshake,
-  ArrowRight, Plus, ChevronRight, Mail,
+  ArrowRight, Plus, Mail,
 } from 'lucide-react';
 import Section from '../components/Section';
+import SEOHead from '../seo/SEOHead';
+import { SITE_URL, breadcrumbSchema, legalServiceSchema } from '../seo/seoConfig';
 
 /* ─── Data ─── */
 const services = [
@@ -43,8 +45,6 @@ const faqs = [
   { q: 'Can startups protect ideas early?', a: 'Yes. Provisional patents, trademark applications, and NDA frameworks are critical for early-stage IP protection and fundraising.' },
 ];
 
-
-
 const stagger = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
 
@@ -59,7 +59,7 @@ const AnimatedCounter = ({ value, label }) => (
 /* ─── FAQ Item ─── */
 const FAQItem = ({ faq, index, isOpen, onToggle }) => (
   <div className="faq-item border-b-ui" data-open={isOpen}>
-    <button className="faq-trigger" onClick={() => onToggle(index)}>
+    <button className="faq-trigger" onClick={() => onToggle(index)} aria-expanded={isOpen} aria-controls={`faq-answer-${index}`}>
       <div className="flex items-center gap-4">
         <span className="font-medium font-mono" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{index + 1}</span>
         <span className="font-semibold tracking-tight" style={{ fontSize: '1rem', fontFamily: 'var(--font-heading)' }}>{faq.q}</span>
@@ -68,7 +68,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle }) => (
     </button>
     <AnimatePresence>
       {isOpen && (
-        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
+        <motion.div id={`faq-answer-${index}`} role="region" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
           <p className="pb-8 pl-10" style={{ fontSize: '0.889rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>{faq.a}</p>
         </motion.div>
       )}
@@ -76,11 +76,27 @@ const FAQItem = ({ faq, index, isOpen, onToggle }) => (
   </div>
 );
 
+/* ─── FAQ Schema ─── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+
 const Home = () => {
   const [openFaq, setOpenFaq] = useState(null);
   const toggleFaq = useCallback((i) => setOpenFaq(p => p === i ? null : i), []);
 
-
+  const breadcrumbs = breadcrumbSchema([
+    { name: 'Home', url: SITE_URL },
+  ]);
 
   return (
     <motion.main
@@ -89,10 +105,17 @@ const Home = () => {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
+      <SEOHead
+        title={null}
+        description="MRINJOY Partners provides professional Intellectual Property legal services including Trademark Registration, Patent Filing, Copyright Registration, Design Protection, Brand Protection, and IP Consultation services across India."
+        path="/"
+        jsonLd={[legalServiceSchema, faqSchema, breadcrumbs]}
+      />
+
       {/* ── HERO ── */}
       <Section className="min-h-[90vh] flex flex-col justify-center relative overflow-hidden !pt-16 !pb-24" borderBottom>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-14 relative z-10">
-          <div className="label-accent">Intellectual Property Law</div>
+          <div className="label-accent">Intellectual Property Law Firm — India</div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-end relative z-10">
@@ -106,14 +129,14 @@ const Home = () => {
 
           <motion.div className="lg:col-span-5 flex flex-col gap-8" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}>
             <p style={{ fontSize: '1rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>
-              We help businesses, founders, and innovators secure their intellectual property through strategic legal protection — from patents and trademarks to copyrights and design rights.
+              We help businesses, founders, and innovators secure their intellectual property through strategic legal protection — from <strong>Trademark Registration</strong> and <strong>Patent Filing</strong> to <strong>Copyright Registration</strong>, <strong>Design Protection</strong>, and comprehensive <strong>Brand Protection</strong> services across India.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary group">
                 Talk to an Expert <ArrowRight className="btn-arrow" size={14} />
               </a>
               <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline flex items-center gap-2">
-                <Mail size={16} /> Mail Us
+                <Mail size={16} />Mail Us
               </a>
             </div>
           </motion.div>
@@ -131,13 +154,13 @@ const Home = () => {
       <Section id="services" borderBottom bg="var(--bg-surface)">
         <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="label-accent mb-4">Services</div>
+            <div className="label-accent mb-4">Our Intellectual Property Services</div>
             <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.333rem, 5vw, 3.111rem)' }}>
               What We<br /><span style={{ color: 'var(--accent)' }}>Protect</span>
             </h2>
           </motion.div>
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} style={{ fontSize: '0.889rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '24rem' }}>
-            Comprehensive IP solutions built to protect every dimension of your innovation.
+            Comprehensive Intellectual Property solutions — Trademark Registration, Patent Filing, Copyright Registration, Design Protection, and IP Consultation — built to protect every dimension of your innovation.
           </motion.p>
         </div>
 
@@ -147,7 +170,7 @@ const Home = () => {
           {services.map((svc, i) => {
             const Icon = svc.icon;
             return (
-              <Link key={i} to={`/services/${svc.slug}`} className="group">
+              <Link key={i} to={`/services/${svc.slug}`} className="group" title={`${svc.title} — MRINJOY Partners`}>
                 <motion.div variants={fadeUp}
                   className="flex flex-col justify-between h-full min-h-[300px] transition-all duration-400"
                   style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)' }}
@@ -191,8 +214,8 @@ const Home = () => {
               <span style={{ color: 'var(--accent)' }}>Trusted by Businesses.</span>
             </motion.h2>
             <div className="space-y-5" style={{ fontSize: '1rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>
-              <p>Mrinjoy Partners is an intellectual property–focused legal practice dedicated to protecting innovation, creativity, and commercial identity.</p>
-              <p>From patents and trademarks to copyrights and industrial designs, we provide end-to-end legal support for creators, startups, and enterprises.</p>
+              <p>MRINJOY Partners is an intellectual property–focused legal practice dedicated to protecting innovation, creativity, and commercial identity across India.</p>
+              <p>From <strong>Patent Filing</strong> and <strong>Trademark Registration</strong> to <strong>Copyright Registration</strong> and industrial <strong>Design Protection</strong>, we provide end-to-end legal support for creators, startups, and enterprises.</p>
             </div>
             <div className="mt-10 flex items-center gap-5">
             <div className="mt-10 flex flex-wrap items-center gap-5">
@@ -205,7 +228,7 @@ const Home = () => {
 
           <motion.div className="lg:col-span-5" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
             <div className="flex flex-col gap-0" style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-ui)' }}>
-              <div className="label mb-6">Est. 2022 · Kolkata</div>
+              <div className="label mb-6">Est. 2022 · Vadodara</div>
               {['Patent Strategy', 'Trademark Protection', 'Copyright Enforcement', 'IP Litigation'].map((w, i) => (
                 <div key={i} className="flex items-center gap-4 border-b-ui" style={{ padding: '0.889rem 0' }}>
                   <span className="font-mono font-medium" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>
@@ -214,7 +237,7 @@ const Home = () => {
               ))}
               <div className="flex items-center gap-2 mt-6">
                 <div className="w-1.5 h-1.5" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="label">Mrinjoy Partners</span>
+                <span className="label">MRINJOY Partners</span>
               </div>
             </div>
           </motion.div>
@@ -226,7 +249,7 @@ const Home = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mb-16">
           <div className="label-accent mb-4">Why Choose Us</div>
           <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.333rem, 5vw, 3.111rem)' }}>
-            The Mrinjoy <span style={{ color: 'var(--accent)' }}>Difference</span>
+            The MRINJOY <span style={{ color: 'var(--accent)' }}>Difference</span>
           </h2>
         </motion.div>
         <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}
@@ -323,7 +346,7 @@ const Home = () => {
                 Protect Your IP<br />Before Someone<br />Else Claims It.
               </h2>
               <p className="font-medium mb-12 max-w-md leading-relaxed" style={{ fontSize: '0.889rem', color: 'rgba(255,255,255,0.55)' }}>
-                Our team of IP experts is ready to help you build a robust protection strategy.
+                Our team of Intellectual Property experts is ready to help you build a robust protection strategy — from Trademark Registration and Patent Filing to complete Brand Protection.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary group px-10 py-4">
