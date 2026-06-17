@@ -1,370 +1,385 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView, animate, useScroll, useTransform } from 'framer-motion';
 import {
-  FileText, Shield, Copyright, Pencil, Gavel, Lightbulb,
-  Target, Zap, Award, Handshake,
-  ArrowRight, Plus, Mail,
+  Shield, FileText, Copyright, Pencil, Target, Lightbulb,
+  ArrowRight, ChevronDown
 } from 'lucide-react';
 import Section from '../components/Section';
 import SEOHead from '../seo/SEOHead';
-import { SITE_URL, breadcrumbSchema, legalServiceSchema } from '../seo/seoConfig';
+import { generateFaqSchema, organizationSchema, localBusinessSchema } from '../seo/seoConfig';
+import { SITE_URL, legalServiceSchema, breadcrumbSchema } from '../seo/seoConfig';
 
 /* ─── Data ─── */
 const services = [
-  { title: 'Patent Filing', slug: 'patent-filing', icon: FileText, desc: 'Secure exclusive rights over your inventions through strategic patent filing and prosecution.' },
-  { title: 'Trademark Registration', slug: 'trademark-registration', icon: Shield, desc: 'Protect your brand identity, logos, and market reputation with trademark solutions.' },
-  { title: 'Copyright Protection', slug: 'copyright-protection', icon: Copyright, desc: 'Protect original creative works — software, content, music, and digital assets.' },
-  { title: 'Design Rights', slug: 'design-rights', icon: Pencil, desc: 'Safeguard the visual identity and industrial appearance of your products.' },
-  { title: 'IP Litigation', slug: 'ip-litigation', icon: Gavel, desc: 'Enforce your rights against infringement, counterfeiting, and unauthorized use.' },
-  { title: 'IP Advisory', slug: 'ip-advisory', icon: Lightbulb, desc: 'Strategic IP consultation for startups, enterprises, and innovators.' },
-];
-
-const whyUs = [
-  { icon: Target, title: 'Strategic', desc: 'Legal protection aligned with business growth and market positioning.' },
-  { icon: Zap, title: 'Efficient', desc: 'Fast filing, registration, and compliance across jurisdictions.' },
-  { icon: Award, title: 'Precise', desc: 'Deep domain expertise and meticulous legal precision.' },
-  { icon: Handshake, title: 'Long-term', desc: 'Continuous support beyond registration and filing.' },
+  { title: 'Trademark Registration', slug: 'trademark', icon: Shield, desc: 'Register and defend your brand name, logo, and identity to build legal brand equity in India.' },
+  { title: 'Patent Filing', slug: 'patent', icon: FileText, desc: 'Secure exclusive legal rights for your technology inventions and industrial processes.' },
+  { title: 'Copyright Registration', slug: 'copyright', icon: Copyright, desc: 'Protect creative expressions — including software code, writing, and digital artwork.' },
+  { title: 'Design Protection', slug: 'design', icon: Pencil, desc: 'Safeguard the unique visual appearance and industrial shape designs of your products.' },
+  { title: 'Brand Protection', slug: 'brand', icon: Target, desc: 'Active infringement monitoring and rapid cease and desist enforcement across markets.' },
+  { title: 'IP Consultation', slug: 'ip-consultation', icon: Lightbulb, desc: 'Receive expert advisory on IP audits, portfolio growth, and strategic licensing.' },
 ];
 
 const steps = [
-  { num: '01', title: 'Consultation', desc: 'Understanding your business, goals, and IP landscape.' },
-  { num: '02', title: 'Evaluation', desc: 'Defining protection scope and building a strategy.' },
-  { num: '03', title: 'Filing', desc: 'Documentation, submission, and legal processing.' },
-  { num: '04', title: 'Protection', desc: 'Ongoing monitoring, enforcement, and renewals.' },
+  { num: '01', title: 'Consultation', desc: 'Understanding your IP landscape, goals, and objectives.' },
+  { num: '02', title: 'Evaluation', desc: 'Comprehensive review and formulating a strategy.' },
+  { num: '03', title: 'Filing', desc: 'Documentation, submissions, and legal proceedings.' },
+  { num: '04', title: 'Protection', desc: 'Ongoing monitoring, enforcement, and threat detection.' },
 ];
 
-const industries = ['Startups', 'Technology', 'Healthcare', 'Fashion', 'Consumer Brands', 'Media', 'Manufacturing', 'E-Commerce'];
-
 const faqs = [
-  { q: 'How long does trademark registration take?', a: 'The trademark registration process typically takes 12–18 months, depending on jurisdiction and whether objections arise during examination.' },
-  { q: 'What can be patented?', a: 'Any novel, non-obvious invention with industrial applicability — processes, machines, compositions, and certain software innovations.' },
-  { q: 'Do I need copyright registration?', a: 'Copyright is automatic, but registration provides legal evidence of ownership and is required for court enforcement in most jurisdictions.' },
-  { q: 'How do design rights work?', a: 'Design rights protect visual appearance — shape, pattern, or ornamentation — with exclusive rights for up to 15 years depending on jurisdiction.' },
-  { q: 'What happens in infringement cases?', a: 'We investigate, issue cease-and-desist notices, negotiate settlements, and pursue litigation when necessary to protect your rights.' },
-  { q: 'Can startups protect ideas early?', a: 'Yes. Provisional patents, trademark applications, and NDA frameworks are critical for early-stage IP protection and fundraising.' },
+  { q: 'How long does trademark registration take in India?', a: 'Typically 18–24 months from filing to registration, depending on objections and opposition.' },
+  { q: 'What is the difference between a trademark and a copyright?', a: 'Trademarks protect brand identity (names, logos, slogans). Copyrights protect original creative works (art, writing, music, code). Both are forms of IP but cover different assets.' },
+  { q: 'Do I need a lawyer to file a patent in India?', a: 'While self-filing is possible, a patent attorney significantly improves the quality and scope of claims, reducing chances of rejection.' },
+  { q: 'Can I trademark a logo that\'s similar to an existing one?', a: 'No — a trademark search is conducted before filing to identify conflicts. We handle this as part of our trademark service.' },
+  { q: 'What happens if someone infringes on my registered trademark?', a: 'You have legal grounds to send a cease & desist, file for injunction, and claim damages. MRINJOY handles enforcement cases.' },
 ];
 
 const stagger = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
 
-/* ─── Counter Component ─── */
-const AnimatedCounter = ({ value, label }) => (
-  <motion.div variants={fadeUp} className="relative text-center">
-    <span className="block font-extrabold tracking-tighter" style={{ fontSize: '1.778rem', fontFamily: 'var(--font-heading)' }}>{value}</span>
-    <span className="label mt-2 block">{label}</span>
-  </motion.div>
+/* ─── Ticker Marquee Component ─── */
+const TickerMarquee = () => (
+  <div className="w-full py-5 border-y border-gold/20 overflow-hidden bg-background relative z-10">
+    <div className="marquee-track flex gap-8 whitespace-nowrap text-xs font-mono uppercase tracking-widest text-gold">
+      {[...Array(4)].map((_, i) => (
+        <span key={i}>
+          TRADEMARK REGISTRATION · PATENT FILING · COPYRIGHT PROTECTION · DESIGN IP · BRAND PROTECTION · IP CONSULTATION ·{' '}
+        </span>
+      ))}
+    </div>
+  </div>
 );
+
+const AnimatedCounter = ({ value, label }) => {
+  const nodeRef = useRef(null);
+  const inViewRef = useRef(null);
+  const isInView = useInView(inViewRef, { once: true, margin: "-50px" });
+  const numMatch = value.match(/\d+/);
+  const targetNum = numMatch ? parseInt(numMatch[0]) : 0;
+  const suffix = value.replace(/\d+/g, '');
+
+  useEffect(() => {
+    if (isInView && nodeRef.current) {
+      const controls = animate(0, targetNum, {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate(v) {
+          if (nodeRef.current) {
+            nodeRef.current.textContent = Math.round(v) + suffix;
+          }
+        }
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, targetNum, suffix]);
+
+  return (
+    <div ref={inViewRef} className="relative text-left p-8 glass hover:shadow-[0_8px_30px_rgba(200,169,110,0.15)] transition-shadow duration-500 rounded-none border border-gold/20 group">
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-[radial-gradient(circle_at_center,_var(--accent),_transparent_70%)] transition-opacity duration-500 pointer-events-none"></div>
+      <span ref={nodeRef} className="block font-mono font-bold text-[48px] lg:text-[56px] leading-none text-parchment mb-4 group-hover:text-gold transition-colors duration-500 relative z-10">
+        0{suffix}
+      </span>
+      <span className="label text-muted text-[13px] font-body uppercase tracking-wider block relative z-10">{label}</span>
+    </div>
+  );
+};
 
 /* ─── FAQ Item ─── */
 const FAQItem = ({ faq, index, isOpen, onToggle }) => (
-  <div className="faq-item border-b-ui" data-open={isOpen}>
-    <button className="faq-trigger" onClick={() => onToggle(index)} aria-expanded={isOpen} aria-controls={`faq-answer-${index}`}>
-      <div className="flex items-center gap-4">
-        <span className="font-medium font-mono" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{index + 1}</span>
-        <span className="font-semibold tracking-tight" style={{ fontSize: '1rem', fontFamily: 'var(--font-heading)' }}>{faq.q}</span>
+  <div className="faq-item border-b border-gold/40 hover:border-gold transition-colors">
+    <button className="w-full flex items-center justify-between gap-8 py-8 text-left group" onClick={() => onToggle(index)} aria-expanded={isOpen}>
+      <span className={`font-display text-[20px] transition-colors duration-300 ${isOpen ? 'text-gold' : 'text-parchment group-hover:text-gold'}`}>{faq.q}</span>
+      <div className={`faq-icon ${isOpen ? 'bg-gold text-[#FFFFFF] border-gold rotate-45 rounded-full' : 'bg-transparent text-gold border-gold/40 rounded-none group-hover:border-gold'}`}>
+        <ChevronDown size={18} strokeWidth={2} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </div>
-      <div className="faq-icon"><Plus size={13} strokeWidth={1.5} /></div>
     </button>
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {isOpen && (
-        <motion.div id={`faq-answer-${index}`} role="region" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
-          <p className="pb-8 pl-10" style={{ fontSize: '0.889rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>{faq.a}</p>
+        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
+          <p className="pb-8 text-[15px] leading-relaxed text-muted font-body max-w-[65ch] pl-2">{faq.a}</p>
         </motion.div>
       )}
     </AnimatePresence>
   </div>
 );
 
-/* ─── FAQ Schema ─── */
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.a,
-    },
-  })),
-};
 
 const Home = () => {
   const [openFaq, setOpenFaq] = useState(null);
   const toggleFaq = useCallback((i) => setOpenFaq(p => p === i ? null : i), []);
 
-  const breadcrumbs = breadcrumbSchema([
-    { name: 'Home', url: SITE_URL },
-  ]);
+  const breadcrumbs = breadcrumbSchema([{ name: 'Home', url: SITE_URL }]);
+
+  // Process timeline scroll setup
+  const processRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: processRef,
+    offset: ["start 80%", "end 20%"]
+  });
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <motion.main
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-background text-parchment min-h-screen"
     >
       <SEOHead
-        title={null}
-        description="MRINJOY Partners provides professional Intellectual Property legal services including Trademark Registration, Patent Filing, Copyright Registration, Design Protection, Brand Protection, and IP Consultation services across India."
+        title="MRINJOY Partners | Intellectual Property Law Firm"
+        description="MRINJOY Partners provides aggressive, business-first IP protection for startups and enterprises across India."
         path="/"
-        jsonLd={[legalServiceSchema, faqSchema, breadcrumbs]}
+        jsonLd={[
+          organizationSchema,
+          localBusinessSchema,
+          generateFaqSchema(faqs),
+          legalServiceSchema,
+          breadcrumbs
+        ]}
       />
 
       {/* ── HERO ── */}
-      <Section className="min-h-[90vh] flex flex-col justify-center relative overflow-hidden !pt-16 !pb-24" borderBottom>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-14 relative z-10">
-          <div className="label-accent">Intellectual Property Law Firm — India</div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-end relative z-10">
-          <motion.div className="lg:col-span-7" variants={stagger} initial="hidden" animate="show">
-            <h1 className="font-extrabold uppercase tracking-[-0.04em] leading-[0.9]" style={{ fontSize: 'clamp(3rem, 7.5vw, 5.333rem)' }}>
-              <motion.span className="block" variants={fadeUp}>Protect</motion.span>
-              <motion.span className="block" variants={fadeUp}>What You</motion.span>
-              <motion.span className="block" variants={fadeUp} style={{ color: 'var(--accent)' }}>Build.</motion.span>
-            </h1>
-          </motion.div>
-
-          <motion.div className="lg:col-span-5 flex flex-col gap-8" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>
-              We help businesses, founders, and innovators secure their intellectual property through strategic legal protection — from <strong>Trademark Registration</strong> and <strong>Patent Filing</strong> to <strong>Copyright Registration</strong>, <strong>Design Protection</strong>, and comprehensive <strong>Brand Protection</strong> services across India.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary group">
-                Talk to an Expert <ArrowRight className="btn-arrow" size={14} />
-              </a>
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline flex items-center gap-2">
-                <Mail size={16} />Mail Us
-              </a>
-            </div>
-          </motion.div>
+      <Section className="min-h-[100vh] flex flex-col justify-center relative !pt-32 !pb-24 overflow-hidden">
+        {/* Abstract Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <svg className="absolute top-10 right-10 w-[500px] h-[500px] opacity-[0.03] text-parchment" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="0.5" />
+            <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="0.5" />
+            <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.5" />
+            <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.5" />
+          </svg>
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent"></div>
+          <div className="absolute top-0 right-[20%] w-[1px] h-full bg-gradient-to-b from-transparent via-gold/10 to-transparent"></div>
         </div>
 
-        {/* Stats */}
-        <motion.div variants={stagger} initial="hidden" animate="show" className="mt-28 pt-10 border-t-ui grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
-          {[{ val: '500+', lbl: 'Patents Filed' }, { val: '2,000+', lbl: 'Trademarks Registered' }, { val: '98%', lbl: 'Success Rate' }, { val: '15+', lbl: 'Years Experience' }].map((s, i) => (
+        <div className="mb-8 relative z-10">
+          <span className="label text-gold tracking-[0.15em] text-[11px] uppercase font-mono font-semibold">INTELLECTUAL PROPERTY LAW FIRM · INDIA</span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
+          <motion.div className="lg:col-span-11" variants={stagger} initial="hidden" animate="show">
+            <h1 className="leading-[1.1] tracking-tight font-display text-clamp-5xl mb-8 flex flex-col">
+              <span className="flex overflow-hidden">
+                {("Protecting What").split(" ").map((word, i) => (
+                  <motion.span key={i} className="mr-4 lg:mr-6 font-normal block" variants={fadeUp}>{word}</motion.span>
+                ))}
+              </span>
+              <span className="flex overflow-hidden text-gold italic font-bold">
+                {("You Create.").split(" ").map((word, i) => (
+                  <motion.span key={i} className="mr-4 lg:mr-6 block" variants={fadeUp}>{word}</motion.span>
+                ))}
+              </span>
+            </h1>
+            
+            <motion.p 
+              className="text-muted text-[18px] font-body leading-relaxed mb-10 max-w-2xl"
+              initial={{ opacity: 0, y: 24 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+            >
+              Trademark · Patent · Copyright · Design — across India.
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0, y: 24 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+            >
+              <Link to="/contact" className="btn-primary group">
+                FREE CONSULTATION <ArrowRight className="ml-2 btn-arrow" size={16} />
+              </Link>
+              <Link to="/practice-areas" className="btn-outline">
+                OUR SERVICES
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 origin-right rotate-90">
+            <span className="font-mono text-[18px] tracking-[0.2em] text-muted/30 uppercase whitespace-nowrap">
+              EST. 2022
+            </span>
+          </div>
+        </div>
+      </Section>
+
+      {/* 1px Gold hairline divider & Signature Element Marquee Ticker */}
+      <TickerMarquee />
+
+      {/* ── STATS ── */}
+      <Section className="!py-0 relative z-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-gold/20 -mt-[1px]">
+          {[{ val: '100+', lbl: 'Clients Served' }, { val: '4+', lbl: 'Years of Excellence' }, { val: '500+', lbl: 'Cases Handled' }, { val: '98%', lbl: 'Success Rate' }].map((s, i) => (
             <AnimatedCounter key={i} value={s.val} label={s.lbl} />
           ))}
-        </motion.div>
+        </div>
       </Section>
 
       {/* ── SERVICES ── */}
-      <Section id="services" borderBottom bg="var(--bg-surface)">
-        <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <Section id="services" className="bg-background relative">
+        <div className="mb-16 flex flex-col items-start gap-4">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="label-accent mb-4">Our Intellectual Property Services</div>
-            <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.333rem, 5vw, 3.111rem)' }}>
-              What We<br /><span style={{ color: 'var(--accent)' }}>Protect</span>
+            <span className="label text-gold block mb-4 text-[11px] font-mono uppercase tracking-[0.15em]">OUR INTELLECTUAL PROPERTY SERVICES</span>
+            <h2 className="font-semibold tracking-tight leading-none font-display text-clamp-3xl whitespace-pre-line">
+              What We{"\n"}Protect
             </h2>
           </motion.div>
-          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} style={{ fontSize: '0.889rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '24rem' }}>
-            Comprehensive Intellectual Property solutions — Trademark Registration, Patent Filing, Copyright Registration, Design Protection, and IP Consultation — built to protect every dimension of your innovation.
-          </motion.p>
         </div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{ gap: '1px', background: 'var(--border-ui)', border: '1px solid var(--border-ui)' }}>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
           {services.map((svc, i) => {
             const Icon = svc.icon;
             return (
-              <Link key={i} to={`/services/${svc.slug}`} className="group" title={`${svc.title} — MRINJOY Partners`}>
-                <motion.div variants={fadeUp}
-                  className="flex flex-col justify-between h-full min-h-[300px] transition-all duration-400"
-                  style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)' }}
-                  onMouseEnter={(e) => { 
-                    e.currentTarget.style.backgroundColor = 'var(--bg-dark)'; 
-                    e.currentTarget.style.color = 'var(--text-inverse)';
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.borderColor = 'var(--accent)';
-                  }}
-                  onMouseLeave={(e) => { 
-                    e.currentTarget.style.backgroundColor = 'var(--bg-surface)'; 
-                    e.currentTarget.style.color = 'var(--text-main)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = 'var(--border-ui)';
-                  }}>
-                  <div className="mb-10">
-                    <div className="w-12 h-12 flex items-center justify-center mb-6 transition-all duration-400"
-                      style={{ border: '1px solid var(--border-ui)', color: 'var(--accent)' }}>
-                      <Icon size={20} strokeWidth={1.5} className="group-hover:scale-110 transition-transform duration-400" />
+              <motion.div key={i} variants={fadeUp}>
+                <Link to={`/${svc.slug}`} className="group block h-full">
+                  <div className="flex flex-col h-full bg-surface border border-border-ui p-[40px] rounded-none relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)]">
+                    {/* Subtle corner accent */}
+                    <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-transparent group-hover:border-gold transition-colors duration-500"></div>
+                    
+                    <div className="w-[40px] h-[1px] bg-gold mb-8 group-hover:w-[60px] transition-all duration-500"></div>
+                    
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-display text-[22px] text-parchment transition-colors duration-300 group-hover:text-gold">{svc.title}</h3>
+                      <Icon size={24} className="text-gold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" strokeWidth={1.5} />
                     </div>
-                    <span className="font-medium font-mono" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>
+                    
+                    <p className="flex-1 mb-8 text-[14px] text-muted font-body leading-relaxed group-hover:text-parchment/80 transition-colors duration-300">{svc.desc}</p>
+                    <div className="flex items-center gap-2 text-[13px] font-body text-gold mt-auto group-hover:translate-x-2 transition-transform duration-500">
+                      Learn more <ArrowRight size={14} />
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold tracking-tight mb-3" style={{ fontSize: '1.222rem', fontFamily: 'var(--font-heading)' }}>{svc.title}</h3>
-                    <p style={{ fontSize: '0.833rem', lineHeight: '1.65', color: 'var(--text-muted)' }} className="group-hover:text-white/70">{svc.desc}</p>
-                  </div>
-                </motion.div>
-              </Link>
-            );
-          })}
-        </motion.div>
-      </Section>
-
-      {/* ── ABOUT ── */}
-      <Section id="about" borderBottom bg="var(--bg-alternate)">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-start">
-          <div className="lg:col-span-7">
-            <div className="label-accent mb-5">About</div>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="font-extrabold uppercase tracking-tighter leading-[0.95] mb-10" style={{ fontSize: 'clamp(1.889rem, 4.5vw, 2.778rem)' }}>
-              Built for Innovators.<br />
-              <span style={{ color: 'var(--accent)' }}>Trusted by Businesses.</span>
-            </motion.h2>
-            <div className="space-y-5" style={{ fontSize: '1rem', lineHeight: '1.7', color: 'var(--text-muted)', maxWidth: '65ch' }}>
-              <p>MRINJOY Partners is an Intellectual Property Law Firm providing <strong>Trademark Registration</strong>, <strong>Patent Filing</strong>, <strong>Copyright Registration</strong>, <strong>Design Protection</strong>, <strong>Brand Protection</strong>, and <strong>IP Consultation</strong> services for startups, businesses, creators, and innovators across India.</p>
-            </div>
-            <div className="mt-10 flex items-center gap-5">
-            <div className="mt-10 flex flex-wrap items-center gap-5">
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary">Talk to an Expert</a>
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline">Mail Us</a>
-            </div>
-              <div className="accent-line" />
-            </div>
-          </div>
-
-          <motion.div className="lg:col-span-5" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
-            <div className="flex flex-col gap-0" style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-ui)' }}>
-              <div className="label mb-6">Est. 2022 · Serving clients across India</div>
-              {['Patent Strategy', 'Trademark Protection', 'Copyright Enforcement', 'IP Litigation'].map((w, i) => (
-                <div key={i} className="flex items-center gap-4 border-b-ui" style={{ padding: '0.889rem 0' }}>
-                  <span className="font-mono font-medium" style={{ fontSize: '0.667rem', color: 'var(--text-light)' }}>0{i + 1}</span>
-                  <span className="font-bold uppercase tracking-tight" style={{ fontSize: '1.111rem', fontFamily: 'var(--font-heading)' }}>{w}</span>
-                </div>
-              ))}
-              <div className="flex items-center gap-2 mt-6">
-                <div className="w-1.5 h-1.5" style={{ backgroundColor: 'var(--accent)' }} />
-                <span className="label">MRINJOY Partners</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </Section>
-
-      {/* ── WHY US ── */}
-      <Section id="why-us" borderBottom bg="var(--bg-surface)">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mb-16">
-          <div className="label-accent mb-4">Why Choose Us</div>
-          <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.333rem, 5vw, 3.111rem)' }}>
-            The MRINJOY <span style={{ color: 'var(--accent)' }}>Difference</span>
-          </h2>
-        </motion.div>
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-          style={{ gap: '1px', background: 'var(--border-ui)', border: '1px solid var(--border-ui)' }}>
-          {whyUs.map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <motion.div key={i} variants={fadeUp} className="card-lift" style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)' }}>
-                <div className="w-12 h-12 flex items-center justify-center mb-8"
-                  style={{ border: '1px solid var(--border-ui)', color: 'var(--accent)' }}>
-                  <Icon size={20} strokeWidth={1.5} />
-                </div>
-                <h3 className="font-bold tracking-tight mb-3" style={{ fontSize: '1.222rem', fontFamily: 'var(--font-heading)' }}>{item.title}</h3>
-                <p style={{ fontSize: '0.833rem', lineHeight: '1.65', color: 'var(--text-muted)' }}>{item.desc}</p>
+                </Link>
               </motion.div>
             );
           })}
         </motion.div>
       </Section>
 
-      {/* ── PROCESS ── */}
-      <Section id="process" borderBottom bg="var(--bg-alternate)">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mb-16">
-          <div className="label-accent mb-4">Our Process</div>
-          <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.333rem, 5vw, 3.111rem)' }}>
-            How We <span style={{ color: 'var(--accent)' }}>Work</span>
-          </h2>
-        </motion.div>
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {steps.map((s, i) => (
-            <motion.div key={i} variants={fadeUp} className="relative card-lift"
-              style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-ui)' }}>
-              <span className="font-extrabold block leading-none mb-8"
-                style={{ fontSize: '2.667rem', color: 'var(--border-light)', fontFamily: 'var(--font-heading)' }}>{s.num}</span>
-              <div className="accent-line mb-5" />
-              <h3 className="font-bold tracking-tight mb-3" style={{ fontSize: '1.222rem', fontFamily: 'var(--font-heading)' }}>{s.title}</h3>
-              <p style={{ fontSize: '0.833rem', lineHeight: '1.65', color: 'var(--text-muted)' }}>{s.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </Section>
-
-      {/* ── INDUSTRIES ── */}
-      <Section id="industries" borderBottom bg="var(--bg-surface)">
-        <div className="mb-14">
-          <div className="label-accent mb-4">Industries</div>
-          <motion.div initial={{ x: -30, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-            <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2rem, 4.5vw, 2.667rem)' }}>
-              Industries We <span style={{ color: 'var(--accent)' }}>Serve</span>
-            </h2>
-          </motion.div>
-        </div>
-        
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-          {industries.map((ind, i) => (
-            <motion.div key={i} variants={fadeUp} className="text-center cursor-default transition-all duration-400"
-              style={{ padding: '1.333rem', backgroundColor: 'var(--bg-alternate)', border: '1px solid var(--border-ui)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-dark)'; e.currentTarget.style.color = 'var(--text-inverse)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-alternate)'; e.currentTarget.style.color = 'var(--text-main)'; }}>
-              <span className="font-medium font-mono block mb-2" style={{ fontSize: '0.611rem', color: 'var(--text-light)' }}>0{i + 1}</span>
-              <span className="font-semibold tracking-tight" style={{ fontSize: '0.833rem' }}>{ind}</span>
-            </motion.div>
-          ))}
-        </motion.div>
-      </Section>
-
-      {/* ── FAQ ── */}
-      <Section id="faq" borderBottom bg="var(--bg-alternate)">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
-          <motion.div className="lg:col-span-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="label-accent mb-5">FAQ</div>
-            <h2 className="font-extrabold uppercase tracking-tighter leading-[0.95] mb-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 2.667rem)' }}>
-              Frequently<br />Asked<br /><span style={{ color: 'var(--accent)' }}>Questions</span>
-            </h2>
-          </motion.div>
-          <div className="lg:col-span-8 border-t-ui">
-            {faqs.map((f, i) => <FAQItem key={i} faq={f} index={i} isOpen={openFaq === i} onToggle={toggleFaq} />)}
-          </div>
-        </div>
-      </Section>
-
-
-
-      {/* ── CTA ── */}
-      <section id="contact" className="relative overflow-hidden" style={{ background: 'var(--bg-cta)' }}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 py-24 md:py-32 relative z-10" style={{ color: 'var(--text-inverse)' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <div className="flex flex-col items-start text-left">
-              <div className="accent-line mb-8" />
-              <h2 className="font-extrabold uppercase tracking-tighter leading-[0.92] mb-6" style={{ fontSize: 'clamp(2rem, 5vw, 3.333rem)', fontFamily: 'var(--font-heading)' }}>
-                Protect Your IP<br />Before Someone<br />Else Claims It.
-              </h2>
-              <p className="font-medium mb-12 max-w-md leading-relaxed" style={{ fontSize: '0.889rem', color: 'rgba(255,255,255,0.55)' }}>
-                Our team of Intellectual Property experts is ready to help you build a robust protection strategy — from Trademark Registration and Patent Filing to complete Brand Protection.
+      {/* ── ABOUT STRIP SECTION ── */}
+      <Section id="about" className="bg-background border-t border-gold/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-center">
+          <div className="lg:col-span-7">
+            <span className="label text-gold block mb-6 text-[11px] font-mono uppercase tracking-[0.15em]">ABOUT MRINJOY PARTNERS</span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              viewport={{ once: true }} 
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} 
+              className="font-bold tracking-tight leading-[1.1] mb-8 font-display text-[42px] lg:text-[56px] text-parchment relative"
+            >
+              <span className="absolute -left-6 top-0 text-gold/30 text-[80px] font-serif leading-none hidden md:block">"</span>
+              Built for Innovators.{"\n"}Trusted by Businesses.
+            </motion.h2>
+            <div className="text-muted text-[16px] leading-[1.8] font-body max-w-[60ch]">
+              <p>
+                MRINJOY Partners is an Intellectual Property Law Firm providing Trademark Registration, Patent Filing, Copyright Registration, Design Protection, Brand Protection, and IP Consultation services for startups, businesses, creators, and enterprises across India.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-primary group px-10 py-4">
-                  Talk to an Expert <ArrowRight className="btn-arrow" size={15} />
-                </a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" target="_blank" rel="noopener noreferrer" className="btn-outline px-10 py-4 flex items-center gap-2" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
-                  <Mail size={16} /> Mail Us
-                </a>
+            </div>
+            <div className="mt-12 flex flex-wrap gap-4">
+              <Link to="/contact" className="btn-primary group">
+                TALK TO AN EXPERT <ArrowRight className="ml-2 btn-arrow" size={16} />
+              </Link>
+            </div>
+          </div>
+
+          <motion.div 
+            className="lg:col-span-5 relative"
+            initial={{ opacity: 0, x: 30 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <div className="glass p-10 md:p-14 border border-gold/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-2xl"></div>
+              <div className="flex flex-col gap-6 relative z-10">
+                {['Patent Strategy', 'Trademark Protection', 'Copyright Enforcement', 'IP Litigation'].map((w, i) => (
+                  <div key={i} className="flex items-center gap-4 group cursor-default">
+                    <span className="w-8 h-[1px] bg-gold/50 group-hover:w-12 transition-all duration-500"></span>
+                    <span className="font-display italic text-[22px] text-parchment group-hover:text-gold transition-colors duration-300">{w}</span>
+                  </div>
+                ))}
+                <div className="mt-10 pt-10 border-t border-gold/20">
+                  <span className="font-mono text-[11px] text-muted tracking-[0.2em] uppercase">
+                    EST. 2022 — SERVING CLIENTS ACROSS INDIA.
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
-        <div className="absolute inset-0 pointer-events-none opacity-[0.04]">
-          <div className="absolute top-0 left-1/4 w-px h-full bg-white" />
-          <div className="absolute top-0 left-2/4 w-px h-full bg-white" />
-          <div className="absolute top-0 left-3/4 w-px h-full bg-white" />
-        </div>
-      </section>
+      </Section>
 
+      {/* ── PROCESS SECTION ── */}
+      <Section id="process" className="bg-surface border-y border-gold/10 overflow-hidden">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mb-24 text-center">
+          <span className="label text-gold block mb-4 text-[11px] font-mono uppercase tracking-[0.15em]">OUR PROCESS</span>
+          <h2 className="font-bold tracking-tight leading-none font-display text-clamp-3xl">
+            How We Work
+          </h2>
+        </motion.div>
+        
+        <div ref={processRef} className="relative max-w-5xl mx-auto">
+          {/* Desktop horizontal line */}
+          <div className="hidden md:block absolute top-[24px] left-[10%] right-[10%] h-[1px] bg-border-ui">
+            <motion.div className="h-full bg-gold origin-left" style={{ scaleX: lineWidth }} />
+          </div>
+          
+          {/* Mobile vertical line */}
+          <div className="md:hidden absolute top-[24px] bottom-[10%] left-[24px] w-[1px] bg-border-ui">
+            <motion.div className="w-full bg-gold origin-top" style={{ scaleY: lineHeight }} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6 relative z-10">
+            {steps.map((s, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                className="flex flex-row md:flex-col items-start gap-6 md:gap-0"
+              >
+                <div className="flex-shrink-0 w-12 h-12 md:mb-8 rounded-full bg-surface border-2 border-gold flex items-center justify-center font-mono text-[16px] text-gold font-bold z-10 shadow-[0_0_15px_rgba(200,169,110,0.15)]">
+                  {s.num}
+                </div>
+                <div>
+                  <h3 className="font-display text-[20px] text-parchment mb-3">{s.title}</h3>
+                  <p className="text-muted text-[14px] font-body leading-relaxed md:pr-4">{s.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ── FAQ SECTION ── */}
+      <Section id="faq" className="bg-background">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+          <motion.div className="lg:col-span-5" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+            <span className="label text-gold block mb-6 text-[11px] font-mono uppercase tracking-[0.15em]">FAQ</span>
+            <h2 className="font-bold tracking-tight leading-[1.1] mb-8 font-display text-[42px] lg:text-[56px] whitespace-pre-line text-parchment">
+              Frequently{"\n"}<span className="text-gold italic">Asked</span>{"\n"}Questions
+            </h2>
+            <p className="text-muted text-[15px] font-body leading-relaxed max-w-[40ch]">
+              Find answers to the most common questions about intellectual property protection in India.
+            </p>
+          </motion.div>
+          <div className="lg:col-span-7">
+            <div className="border-t border-gold/40">
+              {faqs.map((f, i) => <FAQItem key={i} faq={f} index={i} isOpen={openFaq === i} onToggle={toggleFaq} />)}
+            </div>
+          </div>
+        </div>
+      </Section>
     </motion.main>
   );
 };

@@ -1,159 +1,138 @@
-import { motion } from 'framer-motion';
-import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
-import { LogoFull } from './Logo';
 import { Link } from 'react-router-dom';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Logo } from './Logo';
 
-const footerNav = ['Home', 'About', 'Services', 'Process', 'Contact'];
-const footerServices = ['Patent Filing', 'Trademark', 'Copyright', 'Design Rights', 'Litigation', 'Advisory'];
-const footerLegal = [
-  { label: 'Privacy Policy', path: '/privacy-policy' },
-  { label: 'Terms of Service', path: '/terms-of-service' },
-  { label: 'Disclaimer', path: '/disclaimer' }
-];
+const Footer = () => {
+  return (
+    <footer className="bg-[#111111] text-[#F8F6F2] relative mt-32">
+      
+      {/* Floating Glass CTA Card */}
+      <div className="absolute left-1/2 -translate-x-1/2 -top-24 w-[90%] max-w-[1000px]">
+        <div className="glass-dark rounded-none p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 border border-gold/30 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--accent),_transparent_40%)] pointer-events-none"></div>
+          <div className="relative z-10 max-w-lg text-center md:text-left">
+            <h3 className="font-display text-[28px] md:text-[36px] font-bold text-[#F8F6F2] leading-tight mb-2">
+              Ready to Protect Your Intellectual Property?
+            </h3>
+            <p className="text-[#A3A3A3] font-body text-sm">
+              Schedule a confidential consultation with our legal experts today.
+            </p>
+          </div>
+          <div className="relative z-10 flex-shrink-0">
+            <Link to="/contact" className="btn-primary !bg-gold !text-[#111111] hover:!bg-[#F8F6F2] hover:!text-[#111111] !border-none !py-4 !px-8">
+              Schedule Consultation <ArrowRight className="ml-2 btn-arrow" size={16} />
+            </Link>
+          </div>
+        </div>
+      </div>
 
-const FLink = ({ href, children, ...props }) => (
-  <a
-    href={href}
-    className="transition-colors duration-300 w-fit group flex items-center gap-1"
-    style={{ fontSize: '15px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}
-    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-    onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.85)'}
-    {...props}
-  >
-    {children}
-    <ArrowUpRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-  </a>
-);
-
-const Footer = () => (
-  <footer style={{ backgroundColor: 'var(--footer-bg)' }}>
-    {/* Main */}
-    <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-20">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12">
-
-        {/* Brand — large block */}
-        <div className="lg:col-span-5">
-          <LogoFull size={34} variant="light" className="mb-8" />
-          <p className="max-w-[340px] mb-5" style={{ fontSize: '15px', lineHeight: '1.75', color: 'rgba(255,255,255,0.85)' }}>
-            Intellectual property law practice dedicated to
-            protecting innovation, creativity, and commercial identity.
-          </p>
-          <div className="flex flex-col gap-4 mb-8">
-            <a 
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 group transition-colors"
+      {/* Main Container */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 pt-40 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-12">
+          
+          {/* Column 1: Firm Info + Tagline */}
+          <div className="lg:col-span-5 space-y-8">
+            <Link 
+              to="/" 
+              className="inline-block select-none hover:opacity-90 transition-opacity"
             >
-              <Mail size={14} strokeWidth={1.5} className="text-[var(--accent)] group-hover:text-white transition-colors" />
-              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }} className="group-hover:text-[var(--accent)]">
-                mrinjoypartners@gmail.com
-              </span>
-            </a>
-            <a href="tel:+918910640567" className="flex items-center gap-3 group transition-colors">
-              <Phone size={14} strokeWidth={1.5} className="text-[var(--accent)] group-hover:text-white transition-colors" />
-              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }} className="group-hover:text-[var(--accent)]">
-                +91 89106 40567
-              </span>
-            </a>
-            <div className="flex items-center gap-3">
-              <MapPin size={14} strokeWidth={1.5} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-              <span style={{ fontSize: '14px', lineHeight: '1.5', color: 'rgba(255,255,255,0.85)' }}>Serving clients across India</span>
+              <Logo variant="horizontal" size={40} className="text-[#F8F6F2]" />
+            </Link>
+            <div>
+              <h2 className="font-display text-[32px] font-bold text-[#F8F6F2] mb-4 leading-tight">
+                Protecting Innovation<br/>Across India.
+              </h2>
+              <p className="text-[#A3A3A3] text-[15px] leading-relaxed max-w-[360px] font-body">
+                MRINJOY Partners is an intellectual property law firm dedicated to securing and enforcing the assets that define your business.
+              </p>
             </div>
           </div>
-          <div className="flex gap-3">
-            <motion.a
-              href="https://www.linkedin.com/in/anirbaan-sarkar/"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -2 }}
-              className="w-9 h-9 flex items-center justify-center transition-all duration-300"
-              style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.85)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
-            >
-              <Linkedin size={14} strokeWidth={1.5} />
-            </motion.a>
-          </div>
-        </div>
 
-        {/* Navigation */}
-        <div className="lg:col-span-3">
-          <h4 className="font-bold uppercase tracking-[0.14em] mb-7" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)' }}>
-            Navigation
-          </h4>
-          <div className="flex flex-col gap-3.5">
-            {footerNav.map((item) => {
-              const href = item === 'Home' ? '/#' : item === 'Contact' ? 'https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com' : `/#${item.toLowerCase()}`;
-              const isExternal = item === 'Contact';
-              return (
-                <FLink 
-                  key={item} 
-                  href={href} 
-                  target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noopener noreferrer" : undefined}
+          {/* Column 2: Quick Links */}
+          <div className="lg:col-span-3 space-y-6">
+            <h4 className="label text-gold tracking-widest text-xs font-semibold uppercase">
+              Company
+            </h4>
+            <div className="flex flex-col gap-4">
+              {[
+                { label: 'Home', href: '/' },
+                { label: 'Practice Areas', href: '/practice-areas' },
+                { label: 'About Us', href: '/about' },
+                { label: 'Our Process', href: '/process' },
+                { label: 'FAQ', href: '/faq' },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="text-sm text-[#E5E5E5] hover:text-gold transition-colors duration-300 w-fit flex items-center gap-2 group font-body"
                 >
-                  {item}
-                </FLink>
-              );
-            })}
+                  <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-300 h-px bg-gold"></span>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Services */}
-        <div className="lg:col-span-4">
-          <h4 className="font-bold uppercase tracking-[0.14em] mb-7" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)' }}>
-            Services
-          </h4>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-3.5">
-            {footerServices.map((item) => (
-              <FLink key={item} href="/#services">{item}</FLink>
-            ))}
+          {/* Column 3: Contact Info */}
+          <div className="lg:col-span-4 space-y-6">
+            <h4 className="label text-gold tracking-widest text-xs font-semibold uppercase">
+              Contact Us
+            </h4>
+            <div className="flex flex-col gap-6 text-sm">
+              <a href="tel:+918910640567" className="flex items-start gap-4 group">
+                <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-[#111111] transition-all">
+                  <Phone size={14} />
+                </div>
+                <div>
+                  <span className="text-xs text-[#A3A3A3] block mb-1 uppercase tracking-wider font-mono">Phone Inquiry</span>
+                  <span className="text-[#F8F6F2] group-hover:text-gold transition-colors font-body text-[15px]">+91 89106 40567</span>
+                </div>
+              </a>
+
+              <a href="mailto:mrinjoypartners@gmail.com" className="flex items-start gap-4 group">
+                <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-[#111111] transition-all">
+                  <Mail size={14} />
+                </div>
+                <div>
+                  <span className="text-xs text-[#A3A3A3] block mb-1 uppercase tracking-wider font-mono">Direct Email</span>
+                  <span className="text-[#F8F6F2] group-hover:text-gold transition-colors font-body text-[15px]">mrinjoypartners@gmail.com</span>
+                </div>
+              </a>
+
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold">
+                  <MapPin size={14} />
+                </div>
+                <div>
+                  <span className="text-xs text-[#A3A3A3] block mb-1 uppercase tracking-wider font-mono">Location</span>
+                  <span className="text-[#F8F6F2] font-body text-[15px]">India — Pan-India Advisory</span>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
-    </div>
 
-    {/* Bottom strip */}
-    <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-5">
-          <span style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em', color: 'rgba(255,255,255,0.6)' }}>
-            © {new Date().getFullYear()} Mrinjoy Partners
+      {/* Bottom Strip */}
+      <div className="border-t border-[#333333] bg-[#0A0A0A]">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <span className="text-[11px] text-[#A3A3A3] font-mono tracking-widest uppercase">
+            © {new Date().getFullYear()} MRINJOY Partners. All rights reserved.
           </span>
-          <span className="hidden sm:inline" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.1)' }}>·</span>
-          <span style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.4)' }}>
-            Crafted by anonically22
-          </span>
-        </div>
-        <div className="flex gap-6">
-          {footerLegal.map((item) => (
-            <Link
-              key={item.label}
-              to={item.path}
-              className="transition-colors duration-300"
-              style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.6)' }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
-              onMouseLeave={(e) => e.target.style.color = 'rgba(255,255,255,0.6)'}
+          <span className="text-[11px] text-[#A3A3A3] font-mono tracking-widest uppercase">
+            Designed & Developed by{' '}
+            <Link 
+              to="/developer" 
+              className="text-[#F8F6F2] hover:text-gold border-b border-[#F8F6F2]/30 hover:border-gold transition-colors pb-1 ml-1"
             >
-              {item.label}
+              Anirbaan Sarkar (anonically22)
             </Link>
-          ))}
-          <a
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=anirbaan703@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-300"
-            style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.04em', color: 'rgba(255,255,255,0.6)' }}
-            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}
-          >
-            Report Issue
-          </a>
+          </span>
         </div>
       </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;

@@ -18,7 +18,7 @@ const Section = ({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`
-        w-full py-[72px] md:py-[96px] lg:py-[140px] px-6 md:px-12 lg:px-16
+        w-full py-[120px] px-6 md:px-12 lg:px-16
         ${borderTop ? 'border-t-ui' : ''}
         ${borderBottom ? 'border-b-ui' : ''}
         ${className}

@@ -8,10 +8,16 @@ const DisclaimerGate = ({ onAccept }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
-  }, []);
+    const isAccepted = sessionStorage.getItem(STORAGE_KEY);
+    if (!isAccepted) {
+      setVisible(true);
+    } else {
+      onAccept();
+    }
+  }, [onAccept]);
 
   const handleAgree = () => {
+    sessionStorage.setItem(STORAGE_KEY, 'true');
     setVisible(false);
     onAccept();
   };
@@ -29,18 +35,18 @@ const DisclaimerGate = ({ onAccept }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
           className="fixed inset-0 z-[200] flex items-center justify-center"
-          style={{ background: 'rgba(247,247,244,0.95)', backdropFilter: 'blur(20px)' }}
+          style={{ background: 'rgba(248, 246, 242, 0.96)', backdropFilter: 'blur(20px)' }}
         >
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="w-full max-w-[640px] mx-6 p-10 bg-white shadow-2xl rounded-sm border border-gray-200"
+            className="w-full max-w-[640px] mx-6 p-10 bg-surface shadow-2xl rounded-none border border-gold/20"
           >
             {/* Logo */}
             <div className="flex justify-center mb-10">
-              <MPLogo size={48} variant="dark" />
+              <MPLogo size={48} variant="gold" />
             </div>
 
             {/* Title */}
@@ -50,7 +56,7 @@ const DisclaimerGate = ({ onAccept }) => {
             >
               Disclaimer & Confirmation
             </h2>
-            <div className="w-8 h-px mx-auto mb-8" style={{ background: 'var(--accent)' }} />
+            <div className="w-8 h-px mx-auto mb-8" style={{ background: '#C8A96E' }} />
 
             {/* Content */}
             <div
@@ -61,14 +67,14 @@ const DisclaimerGate = ({ onAccept }) => {
                 As per the rules of the Bar Council of India, we are not permitted to solicit work
                 and advertise through website except as permitted under applicable rules.
               </p>
-              <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mb-6" style={{ color: 'var(--text-main)' }}>
                 By accessing this website, you acknowledge:
               </p>
             </div>
 
             <ul
-              className="space-y-3 mb-10 max-w-[480px] mx-auto"
-              style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text-secondary)' }}
+              className="space-y-3 mb-10 max-w-[340px] mx-auto"
+              style={{ fontSize: '14px', lineHeight: '1.6', color: 'var(--text-main)' }}
             >
               {[
                 'You are seeking information voluntarily.',
@@ -84,10 +90,10 @@ const DisclaimerGate = ({ onAccept }) => {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.04, duration: 0.4 }}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 text-left"
                 >
-                  <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'var(--accent)' }} />
-                  <span>{item}</span>
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#C8A96E' }} />
+                  <span className="text-muted text-sm">{item}</span>
                 </motion.li>
               ))}
             </ul>
@@ -96,7 +102,7 @@ const DisclaimerGate = ({ onAccept }) => {
             <div className="flex justify-center gap-4">
               <button
                 onClick={handleDisagree}
-                className="px-8 py-3.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-all duration-300"
+                className="px-8 py-3.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-all duration-300 rounded-none cursor-pointer"
                 style={{ border: '1px solid var(--border-ui)', color: 'var(--text-muted)', background: 'transparent' }}
                 onMouseEnter={(e) => { e.target.style.borderColor = 'var(--text-main)'; e.target.style.color = 'var(--text-main)'; }}
                 onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border-ui)'; e.target.style.color = 'var(--text-muted)'; }}
@@ -105,8 +111,8 @@ const DisclaimerGate = ({ onAccept }) => {
               </button>
               <button
                 onClick={handleAgree}
-                className="px-10 py-3.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-all duration-300"
-                style={{ background: 'var(--accent)', color: 'white', border: 'none' }}
+                className="px-10 py-3.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-all duration-300 rounded-none cursor-pointer"
+                style={{ background: 'var(--accent)', color: '#FFFFFF', border: 'none' }}
                 onMouseEnter={(e) => { e.target.style.background = 'var(--accent-hover)'; e.target.style.transform = 'translateY(-1px)'; }}
                 onMouseLeave={(e) => { e.target.style.background = 'var(--accent)'; e.target.style.transform = 'translateY(0)'; }}
               >

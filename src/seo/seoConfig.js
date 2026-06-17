@@ -40,7 +40,53 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'MRINJOY Partners',
-  url: 'https://www.mrinjoypartners.com'
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  email: 'mrinjoy@gmail.com',
+  telephone: '+91 98765 43210',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '12, IP Tower, Connaught Place',
+    addressLocality: 'New Delhi',
+    addressRegion: 'Delhi',
+    postalCode: '110001',
+    addressCountry: 'IN'
+  },
+  sameAs: [
+    'https://www.linkedin.com/company/mrinjoy-partners',
+    'https://twitter.com/mrinjoypartners'
+  ]
+};
+
+/**
+ * LocalBusiness Schema (JSON-LD)
+ */
+export const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'MRINJOY Partners',
+  image: `${SITE_URL}/logo.png`,
+  url: SITE_URL,
+  telephone: '+91 98765 43210',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '12, IP Tower, Connaught Place',
+    addressLocality: 'New Delhi',
+    addressRegion: 'Delhi',
+    postalCode: '110001',
+    addressCountry: 'IN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 28.6304,
+    longitude: 77.2177
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '10:00',
+    closes: '18:00'
+  }
 };
 
 /**
@@ -50,7 +96,17 @@ export const legalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'LegalService',
   name: 'MRINJOY Partners',
-  url: 'https://www.mrinjoypartners.com',
+  image: `${SITE_URL}/logo.png`,
+  url: SITE_URL,
+  telephone: '+91 98765 43210',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '12, IP Tower, Connaught Place',
+    addressLocality: 'New Delhi',
+    addressRegion: 'Delhi',
+    postalCode: '110001',
+    addressCountry: 'IN'
+  },
   areaServed: 'India',
   serviceType: [
     'Trademark Registration',
@@ -140,4 +196,25 @@ export const servicePageSEO = {
     keywords:
       'IP Consultation India, IP Advisory, Intellectual Property Strategy, IP Audit, Patent Consultation, MRINJOY Partners',
   },
+};
+
+/**
+ * Generates FAQ Schema (JSON-LD)
+ * @param {Array<{q: string, a: string}>} faqs
+ * @returns {object} FAQPage schema
+ */
+export const generateFaqSchema = (faqs) => {
+  if (!faqs || faqs.length === 0) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
+  };
 };

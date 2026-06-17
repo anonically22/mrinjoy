@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Logo } from './Logo';
 
 const STORAGE_KEY = 'mrinjoy_loaded';
 
@@ -42,11 +43,7 @@ const LoadingScreen = ({ onComplete }) => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="46" height="46" stroke="var(--text-main)" strokeWidth="1" fill="none" />
-                <path d="M8 38V12L16 24L24 12V38" stroke="var(--text-main)" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter" fill="none" />
-                <path d="M28 38V12H36C39.3137 12 42 14.6863 42 18V22C42 25.3137 39.3137 28 36 28H28" stroke="var(--text-main)" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter" fill="none" />
-              </svg>
+              <Logo variant="icon" size={52} className="text-main" />
             </motion.div>
 
             {/* Text reveal */}
@@ -60,27 +57,10 @@ const LoadingScreen = ({ onComplete }) => {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex flex-col leading-none whitespace-nowrap">
-                <span
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    fontWeight: 800,
-                    fontSize: '20px',
-                    letterSpacing: '-0.02em',
-                    color: 'var(--text-main)',
-                  }}
-                >
+                <span className="font-display font-semibold text-[20px] tracking-tight leading-none text-main">
                   MRINJOY
                 </span>
-                <span
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 500,
-                    fontSize: '10px',
-                    letterSpacing: '0.2em',
-                    color: 'var(--text-muted)',
-                    marginTop: '2px',
-                  }}
-                >
+                <span className="font-body text-[10px] tracking-[0.2em] uppercase text-muted leading-none mt-1">
                   PARTNERS
                 </span>
               </div>

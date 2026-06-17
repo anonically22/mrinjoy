@@ -1,65 +1,61 @@
-/**
- * MP Monogram Logo — Geometric minimal logomark
- * Strict monochrome — no gold accent
- */
-const MPLogo = ({ size = 40, className = '', variant = 'dark' }) => {
-  const stroke = variant === 'light' ? '#FFFFFF' : '#111111';
+import React from 'react';
 
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="Mrinjoy Partners Logo"
-    >
-      <rect x="1" y="1" width="46" height="46" stroke={stroke} strokeWidth="1" fill="none" />
-      <path d="M8 38V12L16 24L24 12V38" stroke={stroke} strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter" fill="none" />
-      <path d="M28 38V12H36C39.3137 12 42 14.6863 42 18V22C42 25.3137 39.3137 28 36 28H28" stroke={stroke} strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter" fill="none" />
-    </svg>
-  );
-};
+const Monogram = ({ size = 48, className = "" }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 60 50" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="1.5" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Geometric M */}
+    <path d="M12,40 L12,10 L26,26 L40,10 L40,40" />
+    {/* P Loop attaching to the right stem of the M */}
+    <path d="M40,10 A13,13 0 0,1 40,36" />
+  </svg>
+);
 
-/**
- * Full logo lockup: Monogram + Wordmark
- */
-const LogoFull = ({ size = 36, className = '', variant = 'dark' }) => {
-  const textColor = variant === 'light' ? '#FFFFFF' : '#111111';
-  const mutedColor = variant === 'light' ? 'rgba(255,255,255,0.45)' : '#6B7280';
+const LogoText = ({ horizontal }) => (
+  <div className={`flex ${horizontal ? 'flex-row items-center gap-3' : 'flex-col items-center mt-3'}`}>
+    <span className="font-display font-semibold text-[1.2em] tracking-tight leading-none text-main">
+      MRINJOY
+    </span>
+    {horizontal ? (
+      <span className="text-accent opacity-50 mx-1">|</span>
+    ) : null}
+    <span className="font-body text-[0.45em] tracking-[0.35em] uppercase text-muted leading-none mt-1">
+      PARTNERS
+    </span>
+  </div>
+);
 
-  return (
-    <a href="#" className={`flex items-center gap-2.5 select-none ${className}`}>
-      <MPLogo size={size} variant={variant} />
-      <div className="flex flex-col leading-none">
-        <span
-          style={{
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            fontWeight: 800,
-            fontSize: `${size * 0.38}px`,
-            letterSpacing: '-0.02em',
-            color: textColor,
-          }}
-        >
-          MRINJOY
-        </span>
-        <span
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontWeight: 500,
-            fontSize: `${size * 0.21}px`,
-            letterSpacing: '0.2em',
-            color: mutedColor,
-            marginTop: '1px',
-          }}
-        >
-          PARTNERS
-        </span>
+export const Logo = ({ variant = 'primary', size = 48, className = "" }) => {
+  if (variant === 'icon') {
+    return <Monogram size={size} className={`text-accent ${className}`} />;
+  }
+
+  if (variant === 'horizontal') {
+    return (
+      <div className={`flex items-center gap-4 ${className}`}>
+        <Monogram size={size} className="text-accent" />
+        <div className="w-px h-8 bg-gold/20" />
+        <LogoText horizontal={true} />
       </div>
-    </a>
+    );
+  }
+
+  // Primary (Stacked)
+  return (
+    <div className={`flex flex-col items-center ${className}`}>
+      <Monogram size={size} className="text-accent" />
+      <LogoText horizontal={false} />
+    </div>
   );
 };
 
-export { MPLogo, LogoFull };
-export default LogoFull;
+// Fallback for older imports if any
+export const MPLogo = ({ size, variant }) => <Logo variant="icon" size={size} />;

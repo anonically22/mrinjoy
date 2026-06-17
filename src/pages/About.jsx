@@ -1,127 +1,213 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Mail, Target, Zap, Award, Handshake, ArrowLeft } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Section from '../components/Section';
 import SEOHead from '../seo/SEOHead';
-import { SITE_URL, breadcrumbSchema } from '../seo/seoConfig';
 
 const stagger = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
 
-const GMAIL_LINK = "https://mail.google.com/mail/?view=cm&fs=1&to=mrinjoypartners@gmail.com";
-
-const values = [
-  { icon: Target, title: 'Strategic', desc: 'Legal protection aligned with business growth and market positioning.' },
-  { icon: Zap, title: 'Efficient', desc: 'Fast filing, registration, and compliance across jurisdictions.' },
-  { icon: Award, title: 'Precise', desc: 'Deep domain expertise and meticulous legal precision.' },
-  { icon: Handshake, title: 'Long-term', desc: 'Continuous support beyond registration and filing.' },
-];
-
 const About = () => {
-  const breadcrumbs = breadcrumbSchema([
-    { name: 'Home', url: SITE_URL },
-    { name: 'About', url: `${SITE_URL}/about` },
-  ]);
-
   return (
     <motion.main
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-background text-parchment min-h-screen"
     >
       <SEOHead
-        title="About Us — Intellectual Property Law Firm"
-        description="Learn about MRINJOY Partners — an Intellectual Property law practice dedicated to protecting innovation, creativity, and commercial identity across India."
-        keywords="About MRINJOY Partners, IP Law Firm India, Intellectual Property Attorneys, Pan-India IP Services"
+        title="About Us — MRINJOY Partners"
+        description="Learn about MRINJOY Partners, our mission, values, and why we are India's trusted Intellectual Property Law Firm."
         path="/about"
-        jsonLd={[breadcrumbs]}
       />
 
-      {/* Hero */}
-      <Section className="!pt-32 !pb-24" borderBottom>
-        <div className="mb-12">
-          <Link to="/" className="inline-flex items-center gap-2 label group hover:text-[var(--accent)] transition-colors">
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            Back to Home
-          </Link>
+      {/* ── Section 1: Hero ── */}
+      <Section className="min-h-[85vh] flex flex-col justify-center relative !pt-32 !pb-24 overflow-hidden">
+        {/* Abstract Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <svg className="absolute -top-20 -right-20 w-[800px] h-[800px] opacity-[0.02] text-parchment" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="0.2" />
+            <circle cx="50" cy="50" r="35" stroke="currentColor" strokeWidth="0.2" />
+            <circle cx="50" cy="50" r="25" stroke="currentColor" strokeWidth="0.2" />
+            <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.2" />
+            <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.2" />
+          </svg>
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent"></div>
         </div>
 
-        <motion.div variants={stagger} initial="hidden" animate="show">
-          <motion.div variants={fadeUp} className="label-accent mb-5">About</motion.div>
-          <motion.h1
-            variants={fadeUp}
-            className="font-extrabold uppercase tracking-tighter leading-[0.95] mb-10"
-            style={{ fontSize: 'clamp(2.333rem, 5vw, 4rem)', fontFamily: 'var(--font-heading)' }}
-          >
-            Built for Innovators.<br />
-            <span style={{ color: 'var(--accent)' }}>Trusted by Businesses.</span>
-          </motion.h1>
-          <motion.div variants={fadeUp} className="space-y-5 max-w-[65ch]" style={{ fontSize: '1rem', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-            <p>
-              MRINJOY Partners is an intellectual property–focused legal practice dedicated to protecting innovation, creativity, and commercial identity across India. Established in 2022, we combine deep legal expertise with a client-first approach to deliver strategic Intellectual Property solutions.
-            </p>
-            <p>
-              From <strong>Patent Filing</strong> and <strong>Trademark Registration</strong> to <strong>Copyright Registration</strong> and <strong>Design Protection</strong>, we provide end-to-end legal support for creators, startups, and enterprises seeking robust Brand Protection and IP Consultation services.
-            </p>
-            <p>
-              Our team of experienced Intellectual Property Lawyers works closely with innovators across industries — technology, healthcare, fashion, manufacturing, and e-commerce — to build comprehensive IP strategies that protect and grow their most valuable assets.
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 relative z-10">
+          <motion.div className="lg:col-span-8" variants={stagger} initial="hidden" animate="show">
+            <span className="label text-gold block mb-6 text-[11px] font-mono uppercase tracking-[0.15em]">ABOUT MRINJOY PARTNERS</span>
+            <motion.h1 
+              variants={fadeUp}
+              className="font-bold tracking-tight leading-[1.1] mb-10 font-display text-[64px] md:text-[80px]"
+            >
+              Who We <span className="text-gold italic font-normal">Are.</span>
+            </motion.h1>
+            <motion.p 
+              variants={fadeUp}
+              className="text-muted text-[18px] md:text-[20px] font-body leading-[1.8] max-w-[55ch]"
+            >
+              Founded in 2022, MRINJOY Partners was established with a singular focus: to provide aggressive, business-first intellectual property protection for India's rapidly growing ecosystem of startups, creators, and enterprises.
+            </motion.p>
           </motion.div>
-        </motion.div>
+        </div>
       </Section>
 
-      {/* Values */}
-      <Section bg="var(--bg-surface)" borderBottom>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mb-16">
-          <div className="label-accent mb-4">Our Values</div>
-          <h2 className="font-extrabold uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2.333rem, 5vw, 3.111rem)' }}>
-            The MRINJOY <span style={{ color: 'var(--accent)' }}>Difference</span>
-          </h2>
-        </motion.div>
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-          style={{ gap: '1px', background: 'var(--border-ui)', border: '1px solid var(--border-ui)' }}>
-          {values.map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <motion.div key={i} variants={fadeUp} className="card-lift" style={{ padding: '1.778rem', backgroundColor: 'var(--bg-surface)' }}>
-                <div className="w-12 h-12 flex items-center justify-center mb-8"
-                  style={{ border: '1px solid var(--border-ui)', color: 'var(--accent)' }}>
-                  <Icon size={20} strokeWidth={1.5} />
-                </div>
-                <h3 className="font-bold tracking-tight mb-3" style={{ fontSize: '1.222rem', fontFamily: 'var(--font-heading)' }}>{item.title}</h3>
-                <p style={{ fontSize: '0.833rem', lineHeight: '1.65', color: 'var(--text-muted)' }}>{item.desc}</p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </Section>
-
-      {/* CTA */}
-      <section className="relative overflow-hidden" style={{ background: 'var(--bg-cta)' }}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 py-24 md:py-32 relative z-10" style={{ color: 'var(--text-inverse)' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <div className="flex flex-col items-start text-left">
-              <div className="accent-line mb-8" />
-              <h2 className="font-extrabold uppercase tracking-tighter leading-[0.92] mb-6" style={{ fontSize: 'clamp(2rem, 5vw, 3.333rem)', fontFamily: 'var(--font-heading)' }}>
-                Protect Your IP<br />Before Someone<br />Else Claims It.
-              </h2>
-              <p className="font-medium mb-12 max-w-md leading-relaxed" style={{ fontSize: '0.889rem', color: 'rgba(255,255,255,0.55)' }}>
-                Our team of IP experts is ready to help you build a robust protection strategy.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href={GMAIL_LINK} target="_blank" rel="noopener noreferrer" className="btn-primary group px-10 py-4">
-                  Talk to an Expert <ArrowRight className="btn-arrow" size={15} />
-                </a>
-                <a href={GMAIL_LINK} target="_blank" rel="noopener noreferrer" className="btn-outline px-10 py-4 flex items-center gap-2" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
-                  <Mail size={16} /> Mail Us
-                </a>
+      {/* ── Section 2: Mission (Asymmetrical Layout) ── */}
+      <Section className="!py-32 bg-surface relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+          <motion.div 
+            className="lg:col-span-6 relative"
+            initial={{ opacity: 0, x: -30 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="label text-gold block mb-8 text-[11px] font-mono uppercase tracking-[0.15em]">OUR MISSION</span>
+            <blockquote className="font-display italic text-[36px] md:text-[48px] leading-[1.1] text-parchment relative z-10">
+              <span className="absolute -top-10 -left-8 text-gold/20 text-[120px] font-serif leading-none hidden md:block">"</span>
+              To make world-class intellectual property protection accessible, strategic, and uncompromising.
+            </blockquote>
+          </motion.div>
+          
+          <motion.div 
+            className="lg:col-span-6"
+            initial={{ opacity: 0, x: 30 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <div className="glass p-10 md:p-12 relative overflow-hidden group hover:border-gold/40 transition-colors duration-500">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors duration-500"></div>
+              <div className="space-y-6 text-muted text-[16px] leading-[1.8] font-body relative z-10">
+                <p>
+                  The traditional legal landscape is often fragmented and opaque. Our mission is to bridge the gap between complex IP laws and practical business needs. We don't just file paperwork; we build impenetrable moats around your commercial assets.
+                </p>
+                <p>
+                  From prosecuting intricate software patents to enforcing global trademark rights, we act as a formidable shield for your innovation.
+                </p>
               </div>
             </div>
           </motion.div>
         </div>
-      </section>
+      </Section>
+
+      {/* ── Section 3: Values ── */}
+      <Section className="!py-32 bg-background relative overflow-hidden">
+        <div className="mb-16 text-center md:text-left">
+          <span className="label text-gold block mb-4 text-[11px] font-mono uppercase tracking-[0.15em]">CORE PRINCIPLES</span>
+          <h2 className="font-bold tracking-tight leading-none font-display text-[48px] md:text-[56px]">
+            Our Values
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { title: 'Integrity', desc: 'Total transparency in counsel, billing, and likelihood of success. We never advise filings that don\'t serve your commercial goals.' },
+            { title: 'Expertise', desc: 'Deep, specialized knowledge of IP law. We focus exclusively on intellectual property so we can be absolute masters of our domain.' },
+            { title: 'Innovation', desc: 'We utilize modern tech to streamline our processes, delivering faster turnarounds and more accurate prior art searches.' }
+          ].map((v, i) => (
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="flex flex-col bg-surface border border-gold/20 p-12 rounded-none relative overflow-hidden group hover:-translate-y-2 hover:border-gold hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-500"
+            >
+              <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-transparent group-hover:border-gold transition-colors duration-500"></div>
+              <span className="font-mono font-bold text-[48px] text-gold/30 mb-8 block leading-none group-hover:text-gold transition-colors duration-500">0{i + 1}</span>
+              <h3 className="font-display font-bold text-[26px] text-parchment mb-4">{v.title}</h3>
+              <p className="text-muted text-[15px] font-body leading-[1.8] group-hover:text-parchment/80 transition-colors duration-500">{v.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* ── Section 4: Leadership (E-E-A-T) ── */}
+      <Section className="!py-32 bg-surface relative overflow-hidden border-t border-gold/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+          <motion.div 
+            className="lg:col-span-5"
+            initial={{ opacity: 0, x: -30 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="label text-gold block mb-8 text-[11px] font-mono uppercase tracking-[0.15em]">LEADERSHIP & EXPERTISE</span>
+            <h2 className="font-bold tracking-tight leading-none font-display text-[42px] md:text-[48px] mb-8 text-parchment">
+              Guided by <span className="text-gold italic">Experience.</span>
+            </h2>
+            <p className="text-muted text-[16px] font-body leading-[1.8] mb-8">
+              At MRINJOY Partners, our leadership brings over a decade of specialized experience in Indian and International Intellectual Property Law. We have successfully represented Fortune 500 companies, deep-tech startups, and creative visionaries before the Trademark Registry and Patent Office.
+            </p>
+            <ul className="space-y-4 mb-10">
+              {['Registered Patent & Trademark Attorneys', 'Members of INTA & APAA', 'Specialized in deep-tech & pharmaceutical patents', 'Expertise in complex IP litigation'].map((item, idx) => (
+                <li key={idx} className="flex items-center gap-4 text-[15px] font-body text-parchment/90">
+                  <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+          <motion.div 
+            className="lg:col-span-7"
+            initial={{ opacity: 0, x: 30 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <div className="glass p-12 relative overflow-hidden group hover:border-gold/50 transition-colors duration-500">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/15 transition-colors duration-500"></div>
+              <div className="flex flex-col gap-2 relative z-10">
+                <span className="font-display text-[32px] text-parchment">Mrinjoy Sen</span>
+                <span className="font-mono text-gold text-[12px] uppercase tracking-widest mb-6">Managing Partner & Principal Attorney</span>
+                <p className="text-muted text-[15px] leading-[1.8] font-body max-w-[50ch] mb-8 border-l-2 border-gold/40 pl-6">
+                  "Our philosophy is simple: we don't just register IP; we commercialize and fiercely protect it. Your intellectual property is the DNA of your business valuation."
+                </p>
+                <div className="flex items-center gap-6">
+                  <div className="flex flex-col">
+                    <span className="font-bold text-[24px] text-parchment">12+</span>
+                    <span className="text-[11px] font-mono text-muted uppercase tracking-wider">Years Exp.</span>
+                  </div>
+                  <div className="w-[1px] h-10 bg-gold/20"></div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-[24px] text-parchment">800+</span>
+                    <span className="text-[11px] font-mono text-muted uppercase tracking-wider">IPs Secured</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* ── Section 5: Why Choose Us ── */}
+      <Section className="!py-0 relative z-10 border-t border-gold/20 bg-background">
+        <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gold/20">
+          {[
+            { title: 'Business-First Strategy', desc: 'We don\'t practice law in a vacuum. Every legal action is aligned with your runway, valuation, and exit goals.' },
+            { title: 'Aggressive Enforcement', desc: 'We are known for our zero-tolerance approach to infringement and rapid cease & desist actions.' },
+            { title: 'End-to-End Handling', desc: 'From the first novelty search to the final grant and subsequent renewals, we handle the entire lifecycle.' },
+            { title: 'Transparent Communication', desc: 'No legal jargon. You receive clear, actionable updates on the status of your IP portfolio at all times.' }
+          ].map((d, i) => (
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: i * 0.1 }}
+              className={`p-16 ${i > 1 ? 'lg:border-t border-gold/20' : ''} bg-transparent hover:bg-gold/5 transition-colors duration-500 group`}
+            >
+              <div className="w-[40px] h-[1px] bg-gold mb-8 group-hover:w-[60px] transition-all duration-500"></div>
+              <h3 className="font-display text-[24px] text-parchment mb-4 group-hover:text-gold transition-colors duration-300">{d.title}</h3>
+              <p className="text-muted text-[16px] font-body leading-[1.8] max-w-[45ch]">{d.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
     </motion.main>
   );
 };
