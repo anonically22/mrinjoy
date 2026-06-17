@@ -4,30 +4,34 @@ import { Logo } from './Logo';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111111] text-[#F8F6F2] relative mt-32">
+    <footer className="bg-[#111111] text-[#F8F6F2] relative mt-0">
       
-      {/* Floating Glass CTA Card */}
-      <div className="absolute left-1/2 -translate-x-1/2 -top-24 w-[90%] max-w-[1000px]">
-        <div className="glass-dark rounded-none p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 border border-gold/30 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--accent),_transparent_40%)] pointer-events-none"></div>
-          <div className="relative z-10 max-w-lg text-center md:text-left">
-            <h3 className="font-display text-[28px] md:text-[36px] font-bold text-[#F8F6F2] leading-tight mb-2">
-              Ready to Protect Your Intellectual Property?
-            </h3>
-            <p className="text-[#A3A3A3] font-body text-sm">
-              Schedule a confidential consultation with our legal experts today.
-            </p>
-          </div>
-          <div className="relative z-10 flex-shrink-0">
-            <Link to="/contact" className="btn-primary !bg-gold !text-[#111111] hover:!bg-[#F8F6F2] hover:!text-[#111111] !border-none !py-4 !px-8">
-              Schedule Consultation <ArrowRight className="ml-2 btn-arrow" size={16} />
-            </Link>
-          </div>
+      {/* Standalone CTA Section */}
+      <div className="relative overflow-hidden bg-[#0A0A0A] border-b border-[#333333]">
+        {/* Diagonal lines pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.05]" 
+          style={{ 
+            backgroundImage: 'repeating-linear-gradient(-45deg, #C9A96E 0, #C9A96E 1px, transparent 1px, transparent 12px)' 
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#0A0A0A_90%)] pointer-events-none"></div>
+
+        <div className="max-w-[900px] mx-auto px-6 py-24 md:py-32 relative z-10 flex flex-col items-center text-center">
+          <h2 className="font-display text-[40px] md:text-[64px] font-bold text-[#F8F6F2] leading-[1.1] mb-6">
+            Protect Your IP Before Someone Else Claims It.
+          </h2>
+          <p className="text-[#A3A3A3] font-body text-[16px] md:text-[18px] mb-10 max-w-2xl leading-relaxed">
+            Our team of Intellectual Property experts is ready to help you build a robust protection strategy.
+          </p>
+          <Link to="/contact" className="btn-primary !bg-gold !text-[#111111] hover:!bg-[#F8F6F2] hover:!text-[#111111] !border-none !py-4 !px-8 uppercase tracking-[0.15em] text-[13px] font-bold">
+            FREE CONSULTATION <ArrowRight className="ml-2 btn-arrow" size={16} />
+          </Link>
         </div>
       </div>
 
       {/* Main Container */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 pt-40 pb-20">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-12">
           
           {/* Column 1: Firm Info + Tagline */}
