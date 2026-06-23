@@ -1,140 +1,176 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 import { Logo } from './Logo';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111111] text-[#F8F6F2] relative mt-0">
+    <footer className="bg-[#0A0A0A] text-[#F8F6F2] relative mt-0 border-t border-white/5 font-body">
       
-      {/* Standalone CTA Section */}
-      <div className="relative overflow-hidden bg-[#0A0A0A] border-b border-[#333333]">
-        {/* Diagonal lines pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.05]" 
-          style={{ 
-            backgroundImage: 'repeating-linear-gradient(-45deg, #C9A96E 0, #C9A96E 1px, transparent 1px, transparent 12px)' 
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#0A0A0A_90%)] pointer-events-none"></div>
-
-        <div className="max-w-[900px] mx-auto px-6 py-24 md:py-32 relative z-10 flex flex-col items-center text-center">
-          <h2 className="font-display text-[40px] md:text-[64px] font-bold text-[#F8F6F2] leading-[1.1] mb-6">
-            Protect Your IP Before Someone Else Claims It.
+      {/* 1. Watermarked Banner Section */}
+      <div className="relative overflow-hidden pt-16 pb-12 border-b border-white/5">
+        {/* Massive Backdrop Watermark Text */}
+        <div className="absolute left-6 md:left-12 -bottom-4 select-none pointer-events-none text-[120px] md:text-[220px] font-bold text-white/[0.01] tracking-tighter uppercase font-display leading-none">
+          MRINJOY
+        </div>
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+          <span className="label text-gold block mb-4 text-[11px] font-mono uppercase tracking-[0.2em]">
+            INTELLECTUAL PROPERTY FIRM
+          </span>
+          <h2 className="font-display text-[38px] md:text-[60px] font-bold text-[#F8F6F2] leading-[1.1] max-w-4xl">
+            Protecting Innovation. <span className="text-gold italic font-normal">Securing Growth.</span>
           </h2>
-          <p className="text-[#A3A3A3] font-body text-[16px] md:text-[18px] mb-10 max-w-2xl leading-relaxed">
-            Our team of Intellectual Property experts is ready to help you build a robust protection strategy.
-          </p>
-          <Link to="/contact" className="btn-primary !bg-gold !text-[#111111] hover:!bg-[#F8F6F2] hover:!text-[#111111] !border-none !py-4 !px-8 uppercase tracking-[0.15em] text-[13px] font-bold">
-            FREE CONSULTATION <ArrowRight className="ml-2 btn-arrow" size={16} />
-          </Link>
         </div>
       </div>
 
-      {/* Main Container */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-12">
+      {/* 2. Main Footer Links Grid */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 lg:gap-8">
           
-          {/* Column 1: Firm Info + Tagline */}
-          <div className="lg:col-span-5 space-y-8">
-            <Link 
-              to="/" 
-              className="inline-block select-none hover:opacity-90 transition-opacity"
-            >
-              <Logo variant="horizontal" size={40} className="text-[#F8F6F2]" />
+          {/* Column 1: Logo & Tagline */}
+          <div className="col-span-2 lg:col-span-1 space-y-6">
+            <Link to="/" className="inline-block select-none hover:opacity-90 transition-opacity">
+              <Logo variant="horizontal" size={36} className="text-[#F8F6F2]" />
             </Link>
-            <div>
-              <h2 className="font-display text-[32px] font-bold text-[#F8F6F2] mb-4 leading-tight">
-                Protecting Innovation<br/>Across India.
-              </h2>
-              <p className="text-[#A3A3A3] text-[15px] leading-relaxed max-w-[360px] font-body">
-                MRINJOY Partners is an intellectual property law firm dedicated to securing and enforcing the assets that define your business.
-              </p>
-            </div>
+            <p className="text-[#A3A3A3] text-[14px] leading-relaxed max-w-[240px]">
+              Securing and enforcing the intangible assets that define your business across India.
+            </p>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="lg:col-span-3 space-y-6">
-            <h4 className="label text-gold tracking-widest text-xs font-semibold uppercase">
+          {/* Column 2: Services */}
+          <div className="space-y-5">
+            <h4 className="font-mono text-[11px] text-gold uppercase tracking-[0.15em] font-semibold">
+              Services
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { label: 'Trademark Registration', href: '/trademark' },
+                { label: 'Patent Filing', href: '/patent' },
+                { label: 'Copyright Protection', href: '/copyright' },
+                { label: 'Design Registration', href: '/design' },
+                { label: 'Brand Protection', href: '/brand' },
+                { label: 'IP Consultation', href: '/ip-consultation' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="text-[14px] text-[#A3A3A3] hover:text-gold transition-colors duration-300">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Company */}
+          <div className="space-y-5">
+            <h4 className="font-mono text-[11px] text-gold uppercase tracking-[0.15em] font-semibold">
               Company
             </h4>
-            <div className="flex flex-col gap-4">
+            <ul className="space-y-3">
               {[
-                { label: 'Home', href: '/' },
-                { label: 'Practice Areas', href: '/practice-areas' },
                 { label: 'About Us', href: '/about' },
                 { label: 'Our Process', href: '/process' },
                 { label: 'FAQ', href: '/faq' },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className="text-sm text-[#E5E5E5] hover:text-gold transition-colors duration-300 w-fit flex items-center gap-2 group font-body"
-                >
-                  <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-300 h-px bg-gold"></span>
-                  {item.label}
-                </Link>
+                { label: 'Contact Us', href: '/contact' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="text-[14px] text-[#A3A3A3] hover:text-gold transition-colors duration-300">
+                    {link.label}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          {/* Column 3: Contact Info */}
-          <div className="lg:col-span-4 space-y-6">
-            <h4 className="label text-gold tracking-widest text-xs font-semibold uppercase">
-              Contact Us
+          {/* Column 4: Legal & Resources */}
+          <div className="space-y-5">
+            <h4 className="font-mono text-[11px] text-gold uppercase tracking-[0.15em] font-semibold">
+              Legal
             </h4>
-            <div className="flex flex-col gap-6 text-sm">
-              <a href="tel:+918910640567" className="flex items-start gap-4 group">
-                <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-[#111111] transition-all">
-                  <Phone size={14} />
-                </div>
-                <div>
-                  <span className="text-xs text-[#A3A3A3] block mb-1 uppercase tracking-wider font-mono">Phone Inquiry</span>
-                  <span className="text-[#F8F6F2] group-hover:text-gold transition-colors font-body text-[15px]">+91 89106 40567</span>
-                </div>
-              </a>
+            <ul className="space-y-3">
+              {[
+                { label: 'Privacy Policy', href: '/privacy-policy' },
+                { label: 'Terms of Use', href: '/terms-of-service' },
+                { label: 'Legal Disclaimer', href: '/disclaimer' },
+                { label: 'Knowledge Blog', href: '/blog' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="text-[14px] text-[#A3A3A3] hover:text-gold transition-colors duration-300">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              <a href="mailto:mrinjoypartners@gmail.com" className="flex items-start gap-4 group">
-                <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-[#111111] transition-all">
-                  <Mail size={14} />
-                </div>
-                <div>
-                  <span className="text-xs text-[#A3A3A3] block mb-1 uppercase tracking-wider font-mono">Direct Email</span>
-                  <span className="text-[#F8F6F2] group-hover:text-gold transition-colors font-body text-[15px]">mrinjoypartners@gmail.com</span>
-                </div>
+          {/* Column 5: Connect */}
+          <div className="space-y-5 col-span-2 md:col-span-1">
+            <h4 className="font-mono text-[11px] text-gold uppercase tracking-[0.15em] font-semibold">
+              Connect
+            </h4>
+            <div className="space-y-3 text-[14px] text-[#A3A3A3]">
+              <p className="leading-relaxed">
+                Vadodara, Gujarat, India
+              </p>
+              <p>
+                <a href="mailto:anirbaan703@gmail.com" className="hover:text-gold transition-colors">
+                  anirbaan703@gmail.com
+                </a>
+              </p>
+              <p>
+                <a href="tel:+918910640567" className="hover:text-gold transition-colors">
+                  +91 89106 40567
+                </a>
+              </p>
+            </div>
+            
+            {/* Social Icons */}
+            <div className="flex gap-4 pt-2">
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-[#A3A3A3] hover:text-[#0A0A0A] hover:bg-gold hover:border-gold transition-all duration-300"
+              >
+                <Linkedin size={15} />
               </a>
-
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold">
-                  <MapPin size={14} />
-                </div>
-                <div>
-                  <span className="text-xs text-[#A3A3A3] block mb-1 uppercase tracking-wider font-mono">Location</span>
-                  <span className="text-[#F8F6F2] font-body text-[15px]">India — Pan-India Advisory</span>
-                </div>
-              </div>
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* Bottom Strip */}
-      <div className="border-t border-[#333333] bg-[#0A0A0A]">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-[11px] text-[#A3A3A3] font-mono tracking-widest uppercase">
-            © {new Date().getFullYear()} MRINJOY Partners. All rights reserved.
-          </span>
-          <span className="text-[11px] text-[#A3A3A3] font-mono tracking-widest uppercase">
-            Designed & Developed by{' '}
-            <Link 
-              to="/developer" 
-              className="text-[#F8F6F2] hover:text-gold border-b border-[#F8F6F2]/30 hover:border-gold transition-colors pb-1 ml-1"
-            >
-              Anirbaan Sarkar (anonically22)
-            </Link>
-          </span>
+      {/* 3. Bottom Strip */}
+      <div className="border-t border-white/5 bg-[#070707] py-12">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row lg:items-start justify-between gap-10">
+          
+          {/* Left Side: Copyright + Legal Info Paragraph */}
+          <div className="space-y-4 max-w-3xl">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-[#E5E5E5] font-semibold">
+              <Link to="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link>
+              <span className="text-white/10">|</span>
+              <Link to="/terms-of-service" className="hover:text-gold transition-colors">Terms of Use</Link>
+              <span className="text-white/10">|</span>
+              <Link to="/disclaimer" className="hover:text-gold transition-colors">Legal Disclaimer</Link>
+            </div>
+            <p className="text-[12px] text-[#737373] leading-relaxed">
+              MRINJOY Partners is an Intellectual Property law firm. Legal advisory services described on this website are provided in accordance with applicable rules of the Bar Council of India and local regulations. The content on this website is for informational purposes only and does not constitute formal legal advice or create an attorney-client relationship. Under the rules of the Bar Council of India, we are prohibited from soliciting work or advertising.
+            </p>
+            <div className="text-[11px] text-[#525252] font-mono tracking-wider uppercase flex flex-col sm:flex-row gap-x-4 gap-y-1">
+              <span>© {new Date().getFullYear()} MRINJOY Partners. All rights reserved.</span>
+              <span className="hidden sm:inline text-white/5">|</span>
+              <span>
+                Designed & Developed by{' '}
+                <Link to="/developer" className="text-[#A3A3A3] hover:text-gold transition-colors underline decoration-[#525252]">
+                  Anirbaan Sarkar (anonically22)
+                </Link>
+              </span>
+            </div>
+          </div>
+
+
+
         </div>
       </div>
+
     </footer>
   );
 };

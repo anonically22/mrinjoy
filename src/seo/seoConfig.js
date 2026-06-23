@@ -42,14 +42,12 @@ export const organizationSchema = {
   name: 'MRINJOY Partners',
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
-  email: 'mrinjoy@gmail.com',
-  telephone: '+91 98765 43210',
+  email: 'mrinjoypartners@gmail.com',
+  telephone: '+918910640567',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '12, IP Tower, Connaught Place',
-    addressLocality: 'New Delhi',
-    addressRegion: 'Delhi',
-    postalCode: '110001',
+    addressLocality: 'Vadodara',
+    addressRegion: 'Gujarat',
     addressCountry: 'IN'
   },
   sameAs: [
@@ -67,19 +65,17 @@ export const localBusinessSchema = {
   name: 'MRINJOY Partners',
   image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
-  telephone: '+91 98765 43210',
+  telephone: '+918910640567',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '12, IP Tower, Connaught Place',
-    addressLocality: 'New Delhi',
-    addressRegion: 'Delhi',
-    postalCode: '110001',
+    addressLocality: 'Vadodara',
+    addressRegion: 'Gujarat',
     addressCountry: 'IN'
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 28.6304,
-    longitude: 77.2177
+    latitude: 22.3072,
+    longitude: 73.1812
   },
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
@@ -98,13 +94,12 @@ export const legalServiceSchema = {
   name: 'MRINJOY Partners',
   image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
-  telephone: '+91 98765 43210',
+  telephone: '+918910640567',
+  email: 'mrinjoypartners@gmail.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '12, IP Tower, Connaught Place',
-    addressLocality: 'New Delhi',
-    addressRegion: 'Delhi',
-    postalCode: '110001',
+    addressLocality: 'Vadodara',
+    addressRegion: 'Gujarat',
     addressCountry: 'IN'
   },
   areaServed: 'India',

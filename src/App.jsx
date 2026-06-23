@@ -9,7 +9,9 @@ import LoadingScreen from './components/LoadingScreen';
 // Lazy load pages for Code Splitting (Core Web Vitals Optimization)
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
-const DummyPage = lazy(() => import('./pages/DummyPage'));
+const LegalPrivacy = lazy(() => import('./pages/LegalPrivacy'));
+const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
+const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const PracticeAreas = lazy(() => import('./pages/PracticeAreas'));
 const Trademark = lazy(() => import('./pages/Trademark'));
 const Patent = lazy(() => import('./pages/Patent'));
@@ -115,9 +117,9 @@ const AppContent = () => {
               <Route path="/blog" element={<BlogIndex />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               
-              <Route path="/privacy-policy" element={<DummyPage title="Privacy Policy" />} />
-              <Route path="/terms-of-service" element={<DummyPage title="Terms of Service" />} />
-              <Route path="/disclaimer" element={<DummyPage title="Disclaimer" />} />
+              <Route path="/privacy-policy" element={<LegalPrivacy />} />
+              <Route path="/terms-of-service" element={<TermsOfUse />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
             </Routes>
           </Suspense>
         </AnimatePresence>

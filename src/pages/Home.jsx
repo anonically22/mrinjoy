@@ -212,7 +212,7 @@ const Home = () => {
       {/* ── STATS ── */}
       <Section className="!py-0 relative z-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-gold/20 -mt-[1px]">
-          {[{ val: '100+', lbl: 'Clients Served' }, { val: '4+', lbl: 'Years of Excellence' }, { val: '500+', lbl: 'Cases Handled' }, { val: '98%', lbl: 'Success Rate' }].map((s, i) => (
+          {[{ val: '100+', lbl: 'Clients Served' }, { val: '4+', lbl: 'Years of Excellence' }, { val: '500+', lbl: 'Cases Handled' }, { val: '6+', lbl: 'States Covered' }].map((s, i) => (
             <AnimatedCounter key={i} value={s.val} label={s.lbl} />
           ))}
         </div>
