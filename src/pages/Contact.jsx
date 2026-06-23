@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Twitter, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, ShieldCheck, CheckCircle2, Linkedin, Twitter, AlertCircle, CheckCircle } from 'lucide-react';
 import Section from '../components/Section';
 import SEOHead from '../seo/SEOHead';
+import { checkRateLimit } from '../utils/rateLimiter';
+import ProtectedMailto from '../components/ProtectedMailto';
 
 const stagger = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
@@ -98,6 +100,13 @@ const Contact = () => {
     const now = Date.now();
     if (now - lastSubmitRef.current < 5000) {
       setErrors({ form: 'Please wait a few seconds before submitting again.' });
+      return;
+    }
+
+    // Rate Limit - Max 2 submissions per 10 minutes to prevent spam
+    const isAllowed = checkRateLimit('contact_form_limit', 2, 10 * 60 * 1000);
+    if (!isAllowed) {
+      setErrors({ form: 'Spam protection: Too many submissions. Please wait a few minutes before trying again.' });
       return;
     }
 
@@ -202,7 +211,7 @@ const Contact = () => {
                   <span className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-gold"></span>
                   <span className="font-mono text-[11px] text-muted uppercase tracking-[0.2em] block mb-3">Contact Details</span>
                   <p className="font-body text-[16px] text-parchment mb-2">+91 89106 40567</p>
-                  <a href="mailto:anirbaan703@gmail.com" className="font-body text-[16px] text-gold hover:text-parchment transition-colors">anirbaan703@gmail.com</a>
+                  <ProtectedMailto email="anirbaan703@gmail.com" className="font-body text-[16px] text-gold hover:text-parchment transition-colors" />
                 </div>
 
                 <div className="relative pl-8 border-l border-gold/30">
@@ -230,7 +239,7 @@ const Contact = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="relative"
           >
-            <div className="glass p-10 md:p-14 border border-gold/20 relative overflow-hidden group">
+            <div className="liquid-glass p-10 md:p-14 border border-gold/20 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-full blur-3xl group-focus-within:bg-gold/20 transition-colors duration-500 pointer-events-none"></div>
 
               {/* Success State */}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Section from '../components/Section';
 import SEOHead from '../seo/SEOHead';
+import ProtectedMailto from '../components/ProtectedMailto';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -124,9 +125,7 @@ const Disclaimer = () => {
               <div className="glass p-6 border border-gold/20 space-y-2">
                 <p className="text-parchment font-display">MRINJOY Partners</p>
                 <p>Email:{' '}
-                  <a href="mailto:anirbaan703@gmail.com" className="text-gold hover:underline">
-                    anirbaan703@gmail.com
-                  </a>
+                  <ProtectedMailto email="anirbaan703@gmail.com" className="text-gold hover:underline" />
                 </p>
                 <p>Phone: +91 89106 40567</p>
                 <p>Location: Vadodara, Gujarat, India</p>

@@ -99,7 +99,7 @@ const PracticeAreas = () => {
             return (
               <motion.div key={i} variants={fadeUp}>
                 <Link to={`/${svc.slug}`} className="group block h-full">
-                  <div className="flex flex-col h-full bg-surface border border-border-ui p-10 md:p-12 rounded-none relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)]">
+                  <div className="flex flex-col h-full liquid-glass p-10 md:p-12 relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold/30 hover:bg-white/40">
                     {/* Subtle corner accent */}
                     <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-transparent group-hover:border-gold transition-colors duration-500"></div>
                     

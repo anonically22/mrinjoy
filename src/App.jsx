@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import DisclaimerGate from './components/DisclaimerGate';
+import NoticeBanner from './components/NoticeBanner';
 import LoadingScreen from './components/LoadingScreen';
 
 // Lazy load pages for Code Splitting (Core Web Vitals Optimization)
@@ -124,6 +125,7 @@ const AppContent = () => {
           </Suspense>
         </AnimatePresence>
         <Footer />
+        <NoticeBanner />
       </div>
     </>
   );

@@ -125,7 +125,7 @@ const About = () => {
         </div>
       </Section>
 
-      {/* ── Section 4: Leadership (E-E-A-T) ── */}
+      {/* ── Section 4: Developer & IP Background ── */}
       <Section className="!py-32 bg-surface relative overflow-hidden border-t border-gold/10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           <motion.div 
@@ -135,15 +135,15 @@ const About = () => {
             viewport={{ once: true }} 
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="label text-gold block mb-8 text-[11px] font-mono uppercase tracking-[0.15em]">LEADERSHIP & EXPERTISE</span>
+            <span className="label text-gold block mb-8 text-[11px] font-mono uppercase tracking-[0.15em]">DEVELOPMENT & IP</span>
             <h2 className="font-bold tracking-tight leading-none font-display text-[42px] md:text-[48px] mb-8 text-parchment">
-              Guided by <span className="text-gold italic">Experience.</span>
+              Engineering meets <span className="text-gold italic">Legal Acumen.</span>
             </h2>
             <p className="text-muted text-[16px] font-body leading-[1.8] mb-8">
-              At MRINJOY Partners, our leadership brings over a decade of specialized experience in Indian and International Intellectual Property Law. We have successfully represented Fortune 500 companies, deep-tech startups, and creative visionaries before the Trademark Registry and Patent Office.
+              At MRINJOY Partners, our digital presence is crafted by an engineer with firsthand experience inside the Indian Intellectual Property Office. This unique blend ensures our systems are as legally sound as they are technologically advanced.
             </p>
             <ul className="space-y-4 mb-10">
-              {['Registered Patent & Trademark Attorneys', 'Members of INTA & APAA', 'Specialized in deep-tech & pharmaceutical patents', 'Expertise in complex IP litigation'].map((item, idx) => (
+              {['Former IP Intern at O/o CGPDTM, Kolkata', 'Exposure to IPR Law & Trademark Analysis', 'Published Researcher on IPR Fundamentals', 'Full-Stack Dev & Machine Learning Engineer'].map((item, idx) => (
                 <li key={idx} className="flex items-center gap-4 text-[15px] font-body text-parchment/90">
                   <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
                   {item}
@@ -161,21 +161,15 @@ const About = () => {
             <div className="glass p-12 relative overflow-hidden group hover:border-gold/50 transition-colors duration-500">
               <div className="absolute top-0 right-0 w-40 h-40 bg-gold/5 rounded-full blur-3xl group-hover:bg-gold/15 transition-colors duration-500"></div>
               <div className="flex flex-col gap-2 relative z-10">
-                <span className="font-display text-[32px] text-parchment">Mrinjoy Sen</span>
-                <span className="font-mono text-gold text-[12px] uppercase tracking-widest mb-6">Managing Partner & Principal Attorney</span>
+                <span className="font-display text-[32px] text-parchment">Anirbaan Sarkar</span>
+                <span className="font-mono text-gold text-[12px] uppercase tracking-widest mb-6">Developer & IP Researcher</span>
                 <p className="text-muted text-[15px] leading-[1.8] font-body max-w-[50ch] mb-8 border-l-2 border-gold/40 pl-6">
-                  "Our philosophy is simple: we don't just register IP; we commercialize and fiercely protect it. Your intellectual property is the DNA of your business valuation."
+                  "Building secure, product-first platforms with a deep understanding of the intellectual property frameworks that protect them."
                 </p>
-                <div className="flex items-center gap-6">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-[24px] text-parchment">12+</span>
-                    <span className="text-[11px] font-mono text-muted uppercase tracking-wider">Years Exp.</span>
-                  </div>
-                  <div className="w-[1px] h-10 bg-gold/20"></div>
-                  <div className="flex flex-col">
-                    <span className="font-bold text-[24px] text-parchment">800+</span>
-                    <span className="text-[11px] font-mono text-muted uppercase tracking-wider">IPs Secured</span>
-                  </div>
+                <div className="flex items-center gap-6 mt-4">
+                  <a href="/developer" className="btn-primary !px-6 !py-3">
+                    View Portfolio
+                  </a>
                 </div>
               </div>
             </div>

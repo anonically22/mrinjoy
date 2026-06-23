@@ -1,4 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 50" fill="none" stroke="#C9A96E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12,40 L12,10 L26,26 L40,10 L40,40" />
-  <path d="M40,10 A13,13 0 0,1 40,36" />
+<svg width="1200" height="350" viewBox="0 0 1200 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- ICON -->
+    <g transform="translate(40,40)">
+        <!-- Outer Shape -->
+        <path d="M100 20
+                 C45 20 20 60 20 105
+                 L20 250
+                 L180 250
+                 L180 105
+                 C180 60 155 20 100 20Z"
+              stroke="#1D232B"
+              stroke-width="8"
+              fill="none"/>
+
+        <!-- Sun -->
+        <circle cx="135" cy="80" r="16" fill="#C9A35A"/>
+
+        <!-- Bridge -->
+        <line x1="100" y1="75" x2="100" y2="150"
+              stroke="#1D232B" stroke-width="8"
+              stroke-linecap="round"/>
+
+        <line x1="100" y1="85" x2="35" y2="130"
+              stroke="#1D232B" stroke-width="5"/>
+        <line x1="100" y1="95" x2="35" y2="145"
+              stroke="#1D232B" stroke-width="5"/>
+        <line x1="100" y1="105" x2="35" y2="160"
+              stroke="#1D232B" stroke-width="5"/>
+
+        <line x1="100" y1="85" x2="165" y2="130"
+              stroke="#1D232B" stroke-width="5"/>
+        <line x1="100" y1="95" x2="165" y2="145"
+              stroke="#1D232B" stroke-width="5"/>
+        <line x1="100" y1="105" x2="165" y2="160"
+              stroke="#1D232B" stroke-width="5"/>
+
+        <!-- Divider -->
+        <line x1="20" y1="165" x2="180" y2="165"
+              stroke="#1D232B" stroke-width="6"/>
+
+        <!-- Gateway Arch -->
+        <path d="M75 250
+                 L75 190
+                 C75 165 90 150 100 150
+                 C110 150 125 165 125 190
+                 L125 250"
+              stroke="#1D232B"
+              stroke-width="8"
+              fill="none"/>
+
+        <!-- Side Pillars -->
+        <line x1="50" y1="250" x2="50" y2="200"
+              stroke="#1D232B"
+              stroke-width="12"
+              stroke-linecap="round"/>
+
+        <line x1="150" y1="250" x2="150" y2="200"
+              stroke="#1D232B"
+              stroke-width="12"
+              stroke-linecap="round"/>
+
+        <!-- Inner Door -->
+        <path d="M88 250
+                 L88 210
+                 C88 195 95 185 100 185
+                 C105 185 112 195 112 210
+                 L112 250"
+              stroke="#1D232B"
+              stroke-width="5"
+              fill="none"/>
+    </g>
+
+    <!-- WORDMARK -->
+    <g transform="translate(310,85)">
+        <text x="0" y="90"
+              font-family="Inter, Helvetica, Arial, sans-serif"
+              font-size="90"
+              font-weight="600"
+              fill="#1D232B"
+              letter-spacing="4">
+            MRINJOY
+        </text>
+
+        <text x="2" y="170"
+              font-family="Inter, Helvetica, Arial, sans-serif"
+              font-size="42"
+              font-weight="500"
+              fill="#C9A35A"
+              letter-spacing="18">
+            PARTNERS
+        </text>
+    </g>
 </svg>

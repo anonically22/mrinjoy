@@ -31,9 +31,17 @@ const Navbar = () => {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const location = useLocation();
 
+  const [atBottom, setAtBottom] = useState(false);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const scrollPos = window.scrollY + window.innerHeight;
+      const threshold = document.documentElement.scrollHeight - 400;
+      setAtBottom(scrollPos >= threshold);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // Check initial state
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -45,24 +53,29 @@ const Navbar = () => {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass shadow-sm' : 'bg-transparent'}`}
-        style={{
-          borderBottom: scrolled ? '1px solid rgba(200, 169, 110, 0.3)' : '1px solid transparent',
-        }}
-      >
-        <div className={`max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 flex items-center justify-between transition-all duration-500 ${scrolled ? 'h-16' : 'h-24'}`}>
+      <div className="fixed top-4 left-0 w-full z-50 flex justify-center px-4 pointer-events-none">
+        <nav
+          className={`pointer-events-auto flex items-center justify-between transition-all duration-500 ${
+            scrolled 
+              ? atBottom 
+                ? 'glass-dark py-2.5 px-6 w-[95%] max-w-[1000px] rounded-full'
+                : 'glass-dock py-2.5 px-6 w-[95%] max-w-[1000px]' 
+              : 'bg-transparent border-transparent py-5 px-6 w-full max-w-[1400px] rounded-full'
+          }`}
+        >
           
-          {/* Left: wordmark in Playfair Display italic, gold */}
-          <Link 
-            to="/" 
-            className="flex items-center gap-3 select-none hover:opacity-90 transition-opacity"
-          >
-            <Logo variant="horizontal" size={28} />
-          </Link>
+          {/* Left: wordmark */}
+          <div className="flex-none flex items-center">
+            <Link 
+              to="/" 
+              className="flex items-center gap-3 select-none hover:opacity-80 transition-opacity"
+            >
+              <Logo variant="horizontal" size={scrolled ? 32 : 36} inverted={atBottom} hideText={scrolled} />
+            </Link>
+          </div>
 
-          {/* Right: desktop links in Inter 12px uppercase tracking-widest */}
-          <div className="hidden md:flex items-center gap-10">
+          {/* Center: desktop links */}
+          <div className="hidden md:flex flex-1 justify-center items-center gap-6 lg:gap-10 px-4">
             {navLinks.map((link) => {
               const isServices = !!link.dropdown;
               const isActive = location.pathname === link.href || 
@@ -77,13 +90,13 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.href}
-                    className="flex items-center gap-1 font-body text-xs uppercase tracking-widest text-parchment hover:text-gold transition-colors duration-300 relative"
+                    className={`flex items-center gap-1 font-body text-xs uppercase tracking-widest transition-colors duration-300 relative ${atBottom ? 'text-white hover:text-gold' : 'text-parchment hover:text-gold'}`}
                   >
                     {link.label}
                     {isServices && (
                       <ChevronDown 
                         size={12} 
-                        className={`transition-transform duration-300 text-gold/60 ${desktopServicesOpen ? 'rotate-180 text-gold' : ''}`} 
+                        className={`transition-transform duration-300 ${desktopServicesOpen ? 'rotate-180 text-gold' : (atBottom ? 'text-white/60' : 'text-gold/60')}`} 
                       />
                     )}
 
@@ -102,21 +115,21 @@ const Navbar = () => {
                     <AnimatePresence>
                       {desktopServicesOpen && (
                         <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-surface border border-gold/20 shadow-2xl p-4 rounded-none"
+                          className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-64 liquid-glass p-3"
                         >
-                          <div className="flex flex-col gap-1.5">
+                          <div className="flex flex-col gap-1">
                             {link.dropdown.map((subLink) => {
                               const isSubActive = location.pathname === subLink.href;
                               return (
                                 <Link
                                   key={subLink.label}
                                   to={subLink.href}
-                                  className={`px-3 py-2 text-xs font-mono tracking-wide transition-colors ${
-                                    isSubActive ? 'text-gold bg-background/50 border-l border-gold' : 'text-muted hover:text-gold hover:bg-background/20'
+                                  className={`px-4 py-2.5 text-xs font-mono tracking-wide transition-all rounded-xl ${
+                                    isSubActive ? 'text-gold bg-black/5' : 'text-muted hover:text-gold hover:bg-black/5'
                                   }`}
                                 >
                                   {subLink.label}
@@ -133,24 +146,30 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Desktop CTA */}
-          <Link
-            to="/contact"
-            className="hidden md:flex items-center gap-2 btn-primary !py-2.5 !px-5 !text-[11px] font-mono tracking-wider uppercase border border-gold/20 hover:border-gold hover:bg-gold hover:text-background transition-all"
-          >
-            Inquire Now <ArrowRight size={12} />
-          </Link>
+          {/* Right: Desktop CTA */}
+          <div className="flex-none flex items-center justify-end gap-4">
+            <Link
+              to="/contact"
+              className={`hidden md:flex items-center gap-2 transition-all rounded-full ${
+                scrolled
+                  ? 'btn-primary !py-2 !px-5 !text-[10px]'
+                  : 'btn-primary !py-2.5 !px-6 !text-[11px]'
+              }`}
+            >
+              Inquire Now <ArrowRight size={12} className="btn-arrow" />
+            </Link>
 
-          {/* Mobile hamburger menu toggle */}
-          <button
-            className="md:hidden p-2 text-parchment hover:text-gold transition-colors cursor-pointer"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open navigation menu"
-          >
-            <Menu size={22} strokeWidth={1.5} />
-          </button>
-        </div>
-      </nav>
+            {/* Mobile hamburger menu toggle */}
+            <button
+              className={`md:hidden p-2 transition-colors cursor-pointer ${atBottom ? 'text-white hover:text-gold' : 'text-parchment hover:text-gold'}`}
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open navigation menu"
+            >
+              <Menu size={22} strokeWidth={1.5} />
+            </button>
+          </div>
+        </nav>
+      </div>
 
       {/* Mobile Drawer */}
       <AnimatePresence>

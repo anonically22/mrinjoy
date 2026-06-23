@@ -143,39 +143,89 @@ const Home = () => {
 
       {/* ── HERO ── */}
       <Section className="min-h-[100vh] flex flex-col justify-center relative !pt-32 !pb-24 overflow-hidden">
-        {/* Abstract Background Elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <svg className="absolute top-10 right-10 w-[500px] h-[500px] opacity-[0.03] text-parchment" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="0.5" />
-            <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="0.5" />
-            <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.5" />
-            <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.5" />
-          </svg>
-          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent"></div>
-          <div className="absolute top-0 right-[20%] w-[1px] h-full bg-gradient-to-b from-transparent via-gold/10 to-transparent"></div>
+        {/* Abstract Architectural Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center opacity-[0.15] mix-blend-multiply">
+          <motion.svg 
+            className="w-[800px] h-[800px] text-gold absolute top-[-100px] lg:top-[-200px]" 
+            viewBox="0 0 400 400" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+          >
+            {/* Outer ring (Sun) */}
+            <motion.circle 
+              cx="200" cy="200" r="100" 
+              stroke="currentColor" 
+              strokeWidth="0.5"
+              initial={{ pathLength: 0, rotate: -90 }}
+              animate={{ pathLength: 1, rotate: 270 }}
+              transition={{ duration: 6, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
+            />
+            
+            {/* Inner pulsing sun */}
+            <motion.circle 
+              cx="200" cy="200" r="80" 
+              stroke="currentColor" 
+              strokeWidth="1"
+              initial={{ scale: 0.9, opacity: 0.5 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 4, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
+            />
+
+            {/* Gateway Arch */}
+            <motion.path 
+              d="M 120 400 L 120 280 C 120 230 160 190 200 190 C 240 190 280 230 280 280 L 280 400" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              fill="none"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 5, ease: "easeInOut", delay: 0.5 }}
+            />
+
+            {/* Architectural Pillars */}
+            <motion.line x1="160" y1="200" x2="160" y2="400" stroke="currentColor" strokeWidth="0.5" 
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, delay: 1, ease: "easeOut" }}
+            />
+            <motion.line x1="240" y1="200" x2="240" y2="400" stroke="currentColor" strokeWidth="0.5" 
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, delay: 1, ease: "easeOut" }}
+            />
+
+            {/* Diagonal Bridge Cables */}
+            <motion.line x1="200" y1="190" x2="60" y2="350" stroke="currentColor" strokeWidth="0.5"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, delay: 1.5, ease: "easeOut" }}
+            />
+            <motion.line x1="200" y1="190" x2="340" y2="350" stroke="currentColor" strokeWidth="0.5"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, delay: 1.5, ease: "easeOut" }}
+            />
+            <motion.line x1="200" y1="190" x2="20" y2="400" stroke="currentColor" strokeWidth="0.5"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, delay: 2, ease: "easeOut" }}
+            />
+            <motion.line x1="200" y1="190" x2="380" y2="400" stroke="currentColor" strokeWidth="0.5"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, delay: 2, ease: "easeOut" }}
+            />
+          </motion.svg>
+
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent"></div>
+          <div className="absolute top-0 right-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-gold/20 to-transparent"></div>
+          <div className="absolute top-0 left-[15%] w-[1px] h-full bg-gradient-to-b from-transparent via-gold/10 to-transparent"></div>
         </div>
 
-        <div className="mb-8 relative z-10">
-          <span className="label text-gold tracking-[0.15em] text-[11px] uppercase font-mono font-semibold">INTELLECTUAL PROPERTY LAW FIRM · INDIA</span>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
-          <motion.div className="lg:col-span-11" variants={stagger} initial="hidden" animate="show">
-            <h1 className="leading-[1.1] tracking-tight font-display text-clamp-5xl mb-8 flex flex-col">
-              <span className="flex overflow-hidden">
-                {("Protecting What").split(" ").map((word, i) => (
-                  <motion.span key={i} className="mr-4 lg:mr-6 font-normal block" variants={fadeUp}>{word}</motion.span>
-                ))}
-              </span>
-              <span className="flex overflow-hidden text-gold italic font-bold">
-                {("You Create.").split(" ").map((word, i) => (
-                  <motion.span key={i} className="mr-4 lg:mr-6 block" variants={fadeUp}>{word}</motion.span>
-                ))}
+        <div className="mb-10 relative z-10 flex flex-col items-center text-center">
+          <span className="label text-gold tracking-[0.2em] text-[10px] uppercase font-mono font-semibold mb-6">INTELLECTUAL PROPERTY LAW FIRM · INDIA</span>
+          
+          <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-4xl flex flex-col items-center">
+            <h1 className="leading-[1.1] tracking-tighter font-display text-clamp-5xl mb-6 text-parchment">
+              Protecting What <br/>
+              <span className="font-script font-normal text-gold text-[1.2em] leading-tight block mt-2 px-4 italic-none">
+                You Create.
               </span>
             </h1>
             
             <motion.p 
-              className="text-muted text-[18px] font-body leading-relaxed mb-10 max-w-2xl"
+              className="text-muted text-[16px] md:text-[18px] font-body leading-relaxed mb-10 max-w-[60ch]"
               initial={{ opacity: 0, y: 24 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
@@ -184,25 +234,19 @@ const Home = () => {
             </motion.p>
             
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-6 justify-center w-full"
               initial={{ opacity: 0, y: 24 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
             >
-              <Link to="/contact" className="btn-primary group">
+              <Link to="/contact" className="btn-primary group !px-8 !py-4 text-[12px]">
                 FREE CONSULTATION <ArrowRight className="ml-2 btn-arrow" size={16} />
               </Link>
-              <Link to="/practice-areas" className="btn-outline">
-                OUR SERVICES
-              </Link>
+              <a href="#services" className="btn-outline !px-8 !py-4 text-[12px]">
+                EXPLORE SERVICES
+              </a>
             </motion.div>
           </motion.div>
-
-          <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 origin-right rotate-90">
-            <span className="font-mono text-[18px] tracking-[0.2em] text-muted/30 uppercase whitespace-nowrap">
-              EST. 2022
-            </span>
-          </div>
         </div>
       </Section>
 
@@ -241,7 +285,7 @@ const Home = () => {
             return (
               <motion.div key={i} variants={fadeUp}>
                 <Link to={`/${svc.slug}`} className="group block h-full">
-                  <div className="flex flex-col h-full bg-surface border border-border-ui p-[40px] rounded-none relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)]">
+                  <div className="flex flex-col h-full liquid-glass p-8 relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold/30 hover:bg-white/40">
                     {/* Subtle corner accent */}
                     <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-transparent group-hover:border-gold transition-colors duration-500"></div>
                     
