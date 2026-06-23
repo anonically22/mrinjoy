@@ -7,8 +7,9 @@
     "dev": "vite",
     "build": "vite build && npm run sitemap",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.js"
+    "preview": "npm run build && wrangler dev",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
@@ -19,6 +20,7 @@
     "react-router-dom": "^6.30.3"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.42.2",
     "@eslint/js": "^9.39.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/react": "^18.2.0",
@@ -31,6 +33,7 @@
     "globals": "^16.5.0",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "wrangler": "^4.104.0"
   }
 }
