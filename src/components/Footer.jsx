@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Linkedin, Mail, Phone, MapPin, Code } from 'lucide-react';
 import { Logo } from './Logo';
 import ProtectedMailto from './ProtectedMailto';
 
@@ -10,16 +10,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#0A0A0A] text-[#F8F6F2] relative pt-20 overflow-hidden font-body flex flex-col">
-      {/* Scroll to Top Button */}
-      <div className="absolute top-8 right-6 md:right-16 z-20">
-        <button 
-          onClick={scrollToTop}
-          className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-[#A3A3A3] hover:text-gold hover:border-gold hover:bg-white/5 transition-all duration-300"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp size={20} strokeWidth={1.5} />
-        </button>
-      </div>
+
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 w-full relative z-10 flex flex-col justify-between flex-1">
         
@@ -45,6 +36,7 @@ const Footer = () => {
                 { label: 'Copyright', href: '/copyright' },
                 { label: 'Design', href: '/design' },
                 { label: 'IP Consultation', href: '/ip-consultation' },
+                { label: 'Web Design & Development', href: '/web-development' },
               ].map((link) => (
                 <li key={link.label}>
                   <Link to={link.href} className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors duration-300">
@@ -95,26 +87,50 @@ const Footer = () => {
           {/* Connect */}
           <div className="space-y-6">
             <h4 className="font-mono text-[11px] text-muted uppercase tracking-[0.15em] font-semibold">Connect</h4>
-            <ul className="space-y-3">
-              <li>
-                <ProtectedMailto email="anirbaan703@gmail.com" className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors" />
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Mail size={16} className="text-gold mt-0.5 shrink-0" />
+                <div>
+                  <ProtectedMailto email="mrinjoypartners@gmail.com" className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors block mb-1" />
+                  <ProtectedMailto email="anirbaandsarkar@gmail.com" className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors block" />
+                </div>
               </li>
-              <li>
+              <li className="flex items-center gap-3">
+                <Phone size={16} className="text-gold shrink-0" />
                 <a href="tel:+918910640567" className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors">+91 89106 40567</a>
               </li>
-              <li>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors">LinkedIn</a>
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="text-gold mt-0.5 shrink-0" />
+                <span className="text-[13px] text-[#E5E5E5]">Vadodara, Gujarat, India</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Code size={16} className="text-gold shrink-0" />
+                <Link to="/web-development" className="text-[13px] text-[#E5E5E5] hover:text-gold transition-colors">Development Assistance</Link>
+              </li>
+              <li className="pt-2">
+                <a href="https://linkedin.com/in/anonically22" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-white/10 text-[#E5E5E5] hover:text-gold hover:border-gold hover:bg-white/5 transition-all duration-300">
+                  <Linkedin size={14} />
+                </a>
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Scroll to Top Button (Shifted above copyright) */}
+        <div className="flex justify-end mb-6 relative z-20 pr-2">
+          <button 
+            onClick={scrollToTop}
+            className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-[#A3A3A3] hover:text-gold hover:border-gold hover:bg-white/5 transition-all duration-300"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp size={20} strokeWidth={1.5} />
+          </button>
         </div>
 
         {/* Copyright info */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-[11px] text-muted font-mono tracking-wider pt-8 pb-4 border-t border-white/5">
           <p>© {new Date().getFullYear()} MRINJOY Partners. All rights reserved.</p>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 sm:mt-0 text-right sm:items-center">
-            <Link to="/developer" className="hover:text-gold transition-colors">Dev Assistance</Link>
-            <span className="hidden sm:inline text-white/20">|</span>
             <span>
               Designed by <a href="https://anonical.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">anonically22</a>
             </span>

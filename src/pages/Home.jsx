@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useInView, animate, useScroll, useTransform } from 'framer-motion';
 import {
-  Shield, FileText, Copyright, Pencil, Target, Lightbulb,
+  Shield, FileText, Copyright, Pencil, MonitorSmartphone, Lightbulb,
   ArrowRight, ChevronDown
 } from 'lucide-react';
 import Section from '../components/Section';
@@ -16,7 +16,7 @@ const services = [
   { title: 'Patent Filing', slug: 'patent', icon: FileText, desc: 'Secure exclusive legal rights for your technology inventions and industrial processes.' },
   { title: 'Copyright Registration', slug: 'copyright', icon: Copyright, desc: 'Protect creative expressions — including software code, writing, and digital artwork.' },
   { title: 'Design Protection', slug: 'design', icon: Pencil, desc: 'Safeguard the unique visual appearance and industrial shape designs of your products.' },
-  { title: 'Brand Protection', slug: 'brand', icon: Target, desc: 'Active infringement monitoring and rapid cease and desist enforcement across markets.' },
+  { title: 'Web Design & Development', slug: 'web-development', icon: MonitorSmartphone, desc: 'Custom tech solutions, high-performance websites, and digital product development.' },
   { title: 'IP Consultation', slug: 'ip-consultation', icon: Lightbulb, desc: 'Receive expert advisory on IP audits, portfolio growth, and strategic licensing.' },
 ];
 
@@ -44,7 +44,7 @@ const TickerMarquee = () => (
     <div className="marquee-track flex gap-8 whitespace-nowrap text-xs font-mono uppercase tracking-widest text-gold">
       {[...Array(4)].map((_, i) => (
         <span key={i}>
-          TRADEMARK REGISTRATION · PATENT FILING · COPYRIGHT PROTECTION · DESIGN IP · BRAND PROTECTION · IP CONSULTATION ·{' '}
+          TRADEMARK REGISTRATION · PATENT FILING · COPYRIGHT PROTECTION · DESIGN IP · WEB DEVELOPMENT · IP CONSULTATION ·{' '}
         </span>
       ))}
     </div>
@@ -75,12 +75,11 @@ const AnimatedCounter = ({ value, label }) => {
   }, [isInView, targetNum, suffix]);
 
   return (
-    <div ref={inViewRef} className="relative text-left p-8 glass hover:shadow-[0_8px_30px_rgba(200,169,110,0.15)] transition-shadow duration-500 rounded-none border border-gold/20 group">
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-[radial-gradient(circle_at_center,_var(--accent),_transparent_70%)] transition-opacity duration-500 pointer-events-none"></div>
-      <span ref={nodeRef} className="block font-mono font-bold text-[48px] lg:text-[56px] leading-none text-parchment mb-4 group-hover:text-gold transition-colors duration-500 relative z-10">
+    <div ref={inViewRef} className="relative text-left p-8 bg-[#F5F5F0] rounded-3xl group transition-transform duration-500 hover:-translate-y-1">
+      <span ref={nodeRef} className="block font-mono font-bold text-[48px] lg:text-[56px] leading-none text-[#111111] mb-4">
         0{suffix}
       </span>
-      <span className="label text-muted text-[13px] font-body uppercase tracking-wider block relative z-10">{label}</span>
+      <span className="label text-[#111111]/70 text-[13px] font-body uppercase tracking-wider block font-medium">{label}</span>
     </div>
   );
 };
@@ -252,10 +251,11 @@ const Home = () => {
 
       {/* 1px Gold hairline divider & Signature Element Marquee Ticker */}
       <TickerMarquee />
+      <div className="h-10 w-full bg-background relative z-10"></div>
 
       {/* ── STATS ── */}
       <Section className="!py-0 relative z-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-gold/20 -mt-[1px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-transparent">
           {[{ val: '100+', lbl: 'Clients Served' }, { val: '4+', lbl: 'Years of Excellence' }, { val: '500+', lbl: 'Cases Handled' }, { val: '6+', lbl: 'States Covered' }].map((s, i) => (
             <AnimatedCounter key={i} value={s.val} label={s.lbl} />
           ))}
@@ -286,14 +286,12 @@ const Home = () => {
               <motion.div key={i} variants={fadeUp}>
                 <Link to={`/${svc.slug}`} className="group block h-full">
                   <div className="flex flex-col h-full liquid-glass p-8 relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-gold/30 hover:bg-white/40">
-                    {/* Subtle corner accent */}
-                    <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-transparent group-hover:border-gold transition-colors duration-500"></div>
                     
                     <div className="w-[40px] h-[1px] bg-gold mb-8 group-hover:w-[60px] transition-all duration-500"></div>
                     
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-display text-[22px] text-parchment transition-colors duration-300 group-hover:text-gold">{svc.title}</h3>
-                      <Icon size={24} className="text-gold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" strokeWidth={1.5} />
+                      <Icon size={24} className="text-gold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" strokeWidth={1.25} />
                     </div>
                     
                     <p className="flex-1 mb-8 text-[14px] text-muted font-body leading-relaxed group-hover:text-parchment/80 transition-colors duration-300">{svc.desc}</p>

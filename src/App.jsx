@@ -18,12 +18,12 @@ const Trademark = lazy(() => import('./pages/Trademark'));
 const Patent = lazy(() => import('./pages/Patent'));
 const Copyright = lazy(() => import('./pages/Copyright'));
 const Design = lazy(() => import('./pages/Design'));
-const Brand = lazy(() => import('./pages/Brand'));
 const IPConsultation = lazy(() => import('./pages/IPConsultation'));
 const Process = lazy(() => import('./pages/Process'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Developer = lazy(() => import('./pages/Developer'));
+const WebDevelopment = lazy(() => import('./pages/WebDevelopment'));
 
 // Geo-Targeted Location Pages
 const TrademarkKolkata = lazy(() => import('./pages/TrademarkKolkata'));
@@ -103,13 +103,13 @@ const AppContent = () => {
               <Route path="/patent" element={<Patent />} />
               <Route path="/copyright" element={<Copyright />} />
               <Route path="/design" element={<Design />} />
-              <Route path="/brand" element={<Brand />} />
               <Route path="/ip-consultation" element={<IPConsultation />} />
               <Route path="/about" element={<About />} />
               <Route path="/process" element={<Process />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/developer" element={<Developer />} />
+              <Route path="/web-development" element={<WebDevelopment />} />
               
               {/* Location Routes */}
               <Route path="/trademark-registration-kolkata" element={<TrademarkKolkata />} />

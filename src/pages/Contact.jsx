@@ -128,10 +128,11 @@ const Contact = () => {
 
     try {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const toEmail = "mrinjoypartners@gmail.com,anirbaandsarkar@gmail.com";
       if (isMobile) {
-        window.location.href = `mailto:anirbaan703@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
       } else {
-        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=anirbaan703@gmail.com&su=${subject}&body=${body}`, '_blank');
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${toEmail}&su=${subject}&body=${body}`, '_blank');
       }
 
       // Show success after a brief delay to let the mail client open
@@ -211,7 +212,8 @@ const Contact = () => {
                   <span className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-gold"></span>
                   <span className="font-mono text-[11px] text-muted uppercase tracking-[0.2em] block mb-3">Contact Details</span>
                   <p className="font-body text-[16px] text-parchment mb-2">+91 89106 40567</p>
-                  <ProtectedMailto email="anirbaan703@gmail.com" className="font-body text-[16px] text-gold hover:text-parchment transition-colors" />
+                  <ProtectedMailto email="mrinjoypartners@gmail.com" className="font-body text-[16px] text-gold hover:text-parchment transition-colors mb-2 block" />
+                  <ProtectedMailto email="anirbaandsarkar@gmail.com" className="font-body text-[16px] text-gold hover:text-parchment transition-colors block" />
                 </div>
 
                 <div className="relative pl-8 border-l border-gold/30">
@@ -224,9 +226,6 @@ const Contact = () => {
               <div className="flex gap-4 pt-4">
                 <a href="#" className="w-12 h-12 border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-[#111111] hover:border-gold transition-all duration-300 rounded-full">
                   <Linkedin size={18} />
-                </a>
-                <a href="#" className="w-12 h-12 border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-[#111111] hover:border-gold transition-all duration-300 rounded-full">
-                  <Twitter size={18} />
                 </a>
               </div>
             </motion.div>
@@ -250,8 +249,8 @@ const Contact = () => {
                   transition={{ duration: 0.5 }}
                   className="flex flex-col items-center justify-center text-center py-16 relative z-10"
                 >
-                  <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
-                    <CheckCircle size={32} className="text-green-400" />
+                  <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mb-6">
+                    <CheckCircle size={32} className="text-gold" />
                   </div>
                   <h3 className="font-display text-[24px] text-parchment mb-4">Thank You</h3>
                   <p className="text-muted text-[15px] font-body leading-relaxed max-w-[40ch] mb-8">
@@ -382,7 +381,7 @@ const Contact = () => {
                       <option value="Patent">Patent Filing</option>
                       <option value="Copyright">Copyright Protection</option>
                       <option value="Design">Design Registration</option>
-                      <option value="Brand">Brand Protection</option>
+                      <option value="WebDev">Web Design & Development</option>
                       <option value="General">General Query</option>
                     </select>
                     {errors.subject && <span className={errorClass} role="alert">{errors.subject}</span>}

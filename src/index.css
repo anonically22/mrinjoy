@@ -165,8 +165,8 @@
   }
 
   .liquid-glass {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12));
     border: 1px solid rgba(255,255,255,0.2);
     box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 8px 32px rgba(0,0,0,0.08);

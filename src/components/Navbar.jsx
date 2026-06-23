@@ -14,7 +14,7 @@ const navLinks = [
       { label: 'Patent Filing', href: '/patent' },
       { label: 'Copyright Registration', href: '/copyright' },
       { label: 'Design Protection', href: '/design' },
-      { label: 'Brand Protection', href: '/brand' },
+      { label: 'Web Design & Development', href: '/web-development' },
       { label: 'IP Consultation', href: '/ip-consultation' },
     ]
   },
@@ -119,7 +119,7 @@ const Navbar = () => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-64 liquid-glass p-3"
+                          className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-64 bg-[#0A0A0A]/95 backdrop-blur-md border border-gold/10 p-3 rounded-2xl shadow-xl"
                         >
                           <div className="flex flex-col gap-1">
                             {link.dropdown.map((subLink) => {
