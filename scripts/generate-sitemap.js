@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 import { blogPosts } from '../src/data/blogPosts.js';
 
-const SITE_URL = 'https://www.mrinjoypartners.com';
+const SITE_URL = 'https://mrinjoypartners.in';
 
 // Define static routes
 const routes = [

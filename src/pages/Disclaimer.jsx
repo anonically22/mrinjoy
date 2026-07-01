@@ -61,8 +61,8 @@ const Disclaimer = () => {
               <h2 className="font-display text-[24px] text-parchment mb-4">1. Informational Purposes Only</h2>
               <p>
                 The content on the MRINJOY Partners website at{' '}
-                <a href="https://www.mrinjoypartners.com" className="text-gold hover:underline">
-                  www.mrinjoypartners.com
+                <a href="https://mrinjoypartners.in" className="text-gold hover:underline">
+                  mrinjoypartners.in
                 </a>{' '}
                 ("Website") is provided for general informational and educational purposes only. The information presented on this Website is not intended to be, and should not be construed as, legal advice on any specific matter.
               </p>

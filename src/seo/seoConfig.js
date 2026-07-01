@@ -3,7 +3,7 @@
  * Used by Helmet components across all pages
  */
 
-export const SITE_URL = 'https://www.mrinjoypartners.com';
+export const SITE_URL = 'https://mrinjoypartners.in';
 export const SITE_NAME = 'MRINJOY Partners';
 export const SITE_TITLE = 'MRINJOY Partners | Intellectual Property Law Firm';
 export const SITE_DESCRIPTION =

@@ -61,8 +61,8 @@ const TermsOfUse = () => {
               <h2 className="font-display text-[24px] text-parchment mb-4">1. Acceptance of Terms</h2>
               <p>
                 By accessing and using the MRINJOY Partners website at{' '}
-                <a href="https://www.mrinjoypartners.com" className="text-gold hover:underline">
-                  www.mrinjoypartners.com
+                <a href="https://mrinjoypartners.in" className="text-gold hover:underline">
+                  mrinjoypartners.in
                 </a>{' '}
                 ("Website"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, you must discontinue use of this Website immediately.
               </p>

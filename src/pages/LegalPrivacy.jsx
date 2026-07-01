@@ -61,8 +61,8 @@ const LegalPrivacy = () => {
               <h2 className="font-display text-[24px] text-parchment mb-4">1. Introduction</h2>
               <p>
                 MRINJOY Partners ("we," "us," or "our") is committed to protecting the privacy of individuals who visit our website at{' '}
-                <a href="https://www.mrinjoypartners.com" className="text-gold hover:underline">
-                  www.mrinjoypartners.com
+                <a href="https://mrinjoypartners.in" className="text-gold hover:underline">
+                  mrinjoypartners.in
                 </a>{' '}
                 ("Website"). This Privacy Policy explains what information we collect, why we collect it, how we use and protect it, and your rights concerning your personal data.
               </p>
